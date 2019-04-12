@@ -1,12 +1,32 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import bugsnag from '@bugsnag/js';
+import bugsnagReact from '@bugsnag/plugin-react';
+import './main.css';
+import AppRoutes from './routes';
+import configureAppStore from './redux/store';
+import initialState from './redux/reducers/initialState';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const bugsnagClient = bugsnag('c15c7aa9ea65a456bb72ae91b0ffd859');
+bugsnagClient.use(bugsnagReact, React);
+const store = configureAppStore(initialState);
+// wrap the entire app tree in the ErrorBoundary
+const ErrorBoundary = bugsnagClient.getPlugin('react')
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const renderApp = () => render(
+  <ErrorBoundary>
+    <Provider store={store}>
+      <AppRoutes />
+    </Provider>
+  </ErrorBoundary>,
+  document.getElementById('root')
+);
+
+if (process.env.NODE_ENV !== 'production' && module.hot) {
+  module.hot.accept('./routes', renderApp);
+}
+
+renderApp();
+serviceWorker.register();
