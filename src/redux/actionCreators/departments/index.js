@@ -17,11 +17,9 @@ export const fetchDepartmentRequest = () => ({
   type: types.FETCH_DEPARTMENT_REQUEST
 });
 
-const departmentActions = (departmentId) => dispatch => {
+const departmentActions = () => dispatch => {
   dispatch(fetchDepartmentRequest());
-  const url =
-  departmentId ? `${baseUrl}/departments/${departmentId}`
-  : `${baseUrl}/departments`;
+  const url = `${baseUrl}/departments`;
   return axios(url)
     .then(response => dispatch(fetchDepartmentSuccess(response.data)))
     .catch(error => dispatch(fetchDepartmentFailure(error)))

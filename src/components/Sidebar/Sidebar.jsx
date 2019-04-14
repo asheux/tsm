@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({...props}) => {
-  const { menu } = props;
+  const { menu, handleSidebarClick } = props;
   return (
     <nav className="col-md-2 d-none d-md-block bg-light sidebar">
       <div className="sidebar-sticky">
@@ -10,7 +10,11 @@ const Sidebar = ({...props}) => {
           <h4>Categories</h4>
           {menu.map(item =>
             <li className="nav-item" key={item.category_id}>
-              <Link to="#" className="nav-link">
+              <Link
+                to={`/products/inCategory/${item.category_id}`}
+                data-key={item.category_id}
+                onClick={handleSidebarClick}
+                className="nav-link">
                 <span className="feather"></span>
                 {item.name}
               </Link>

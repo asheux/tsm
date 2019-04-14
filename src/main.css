@@ -292,6 +292,7 @@ ul.account-ul li {
   text-align: center;
   transition: 0.3s;
   width: 100%;
+  height: 90%;
   margin-bottom: 2em;
 }
 
@@ -312,4 +313,299 @@ ul.account-ul li {
 
 .card-div {
   border: hidden;
+}
+
+/* Sinngle Item css */
+
+.single-item-container {
+  margin-bottom: 8em;
+}
+
+.preview {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+  @media screen and (max-width: 996px) {
+  .preview {
+    margin-bottom: 20px;
+  }
+}
+
+.preview-pic {
+  -webkit-box-flex: 1;
+  text-align: center;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.preview-pic .active img {
+  width: 73%;
+}
+
+.preview-thumbnail.nav-tabs {
+  border: none;
+  margin-top: 15px;
+}
+.preview-thumbnail.nav-tabs li {
+    width: 18%;
+    margin-right: 2.5%;
+}
+.preview-thumbnail.nav-tabs li img {
+  max-width: 100%;
+  display: block;
+}
+.preview-thumbnail.nav-tabs li a {
+  padding: 0;
+  margin: 0;
+}
+.preview-thumbnail.nav-tabs li:last-of-type {
+  margin-right: 0;
+}
+
+.tab-content {
+  overflow: hidden;
+}
+
+.preview-pic img {
+  -webkit-animation-name: opacity;
+  animation-name: opacity;
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
+}
+
+.card-item {
+  margin-top: 50px;
+  background: white;
+  padding: 3em;
+  line-height: 1.5em;
+}
+
+.details {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.colors {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 0;
+}
+
+.product-title, .price, .sizes, .colors {
+  text-transform: UPPERCASE;
+  font-weight: bold;
+}
+
+.checked, .price span {
+  color: #DC143C;
+}
+
+.product-title, .rating, .product-description, .price, .vote, .sizes {
+  margin-bottom: 15px;
+}
+
+.product-title {
+  margin-top: 0;
+}
+/* Item sizes */
+
+.size-filter .size {
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  height: 2em;
+  border: 1px solid #DC143C;
+  width: 3em;
+}
+
+.size-filter .size:hover {
+  cursor: pointer;
+}
+
+.size-filter {
+  margin-bottom: 1em;
+}
+
+.size-filter .active {
+  background-color: #DC143C;
+  color: white;
+}
+
+/* Add to cart button */
+
+.add-to-cart, .like {
+  background: #DC143C;
+  padding: 1.2em 1.5em;
+  border: none;
+  border-radius: 30px;;
+  text-transform: UPPERCASE;
+  font-weight: bold;
+  color: #fff;
+  -webkit-transition: background .3s ease;
+  transition: background .3s ease;
+}
+
+.add-to-cart:hover, .like:hover {
+  background: #FF0040;
+  color: #fff;
+}
+
+/* Item color collection */
+
+.color-filter {
+  margin-bottom: 2em;
+  margin-top: 1em;
+}
+
+.color-filter .color {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  height: 1.3em;
+  width: 1.3em;
+  border-radius: 50%;
+}
+
+.color-filter .color:hover {
+  cursor: pointer;
+}
+
+.color-filter .orange {
+  background: #ff9f1a;
+}
+
+.color-filter .pink {
+  background: #FE2E9A;
+}
+
+.color-filter .purple {
+  background: #8A0886;
+}
+
+.color-filter .white {
+  background: #FFFFFF;
+  border: 1px solid #DC143C;
+}
+
+.color-filter .red {
+  background: #B40431;
+}
+
+.color-filter .green {
+  background: #85ad00;
+}
+
+.color-filter .blue {
+  background: #0404B4;
+}
+
+@-webkit-keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+    transform: scale(3);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+    transform: scale(3);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    }
+}
+
+/* Login & register form css */
+
+h1 {
+   margin:auto;
+}
+.logo-row{
+   height:90px;
+   width:420px;
+   color: white;
+   background-color: #DC143C;
+}
+
+.auth-user {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+  text-align:center;
+  margin-top: 5em;
+  margin-bottom: 10em;
+  height:500px;
+  width:420px;
+}
+
+.auth-user:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.auth-btn {
+  margin-right: 10px;
+}
+
+.btn-default {
+  background-color: #DC143C;
+  color: white;
+  border: none;
+  -webkit-transition: background .3s ease;
+  transition: background .3s ease;
+}
+
+.btn-default:hover {
+  background-color: #DC143C;
+  color: white;
+}
+
+/* Footer */
+
+.footer {
+  width: 100%;
+  background-color: #000000;
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  footer {
+    width: 100%;
+  }
+  .auth-user {
+    width: 100%;
+    height: 100%;
+  }
+  .logo-row {
+    width: 360px;
+  }
 }

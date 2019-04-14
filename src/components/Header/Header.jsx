@@ -6,8 +6,8 @@ const Header = () => {
     <div className="account row">
       <div className="col-md-2">
         <ul className="account-ul">
-            <li className="nav-item">Hi! <Link to="/login" className="auth">Login</Link></li>
-            <li className="nav-item">Or <Link to="/register" className="auth">Register</Link></li>
+            <li className="nav-item">Hi! <Link to="/auth/login" className="auth">Login</Link></li>
+            <li className="nav-item">Or <Link to="/auth/register" className="auth">Register</Link></li>
         </ul>
       </div>
       <div className="col-md-8">

@@ -17,11 +17,9 @@ export const fetchProductsRequest = () => ({
   type: types.FETCH_PRODUCTS_REQUEST
 });
 
-const productsActions = (productId) => dispatch => {
+const productsActions = () => dispatch => {
   dispatch(fetchProductsRequest());
-  const url =
-  productId ? `${baseUrl}/products/${productId}`
-  : `${baseUrl}/products`;
+  const url = `${baseUrl}/products`;
   return axios(url)
     .then(response => dispatch(fetchProductsSuccess(response.data)))
     .catch(error => dispatch(fetchProductsFailure(error)))

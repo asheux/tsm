@@ -17,11 +17,9 @@ export const fetchCategoriesRequest = () => ({
   type: types.FETCH_CATEGORIES_REQUEST
 });
 
-const categoriesActions = (categoryId) => dispatch => {
+const categoriesActions = () => dispatch => {
   dispatch(fetchCategoriesRequest());
-  const url =
-  categoryId ? `${baseUrl}/categories/${categoryId}`
-  : `${baseUrl}/categories`;
+  const url = `${baseUrl}/categories`;
   return axios(url)
     .then(response => dispatch(fetchCategoriesSuccess(response.data)))
     .catch(error => dispatch(fetchCategoriesFailure(error)))

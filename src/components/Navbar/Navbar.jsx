@@ -16,7 +16,8 @@ const Navbar = ({...props}) => {
                         {menuItems.map(menuItem =>
                             <li key={menuItem.department_id} className="nav-item">
                                 <Link
-                                    to="#"
+                                    to={`/products/inDepartment/${menuItem.department_id}`}
+                                    data-key={menuItem.department_id}
                                     className='link-item'
                                     style={activeItem === menuItem.name ? itemStyle : {}}
                                     onClick={handleItemClick}

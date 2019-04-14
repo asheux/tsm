@@ -13,5 +13,20 @@ export default {
     data: [],
     error: null,
     loading: false
+  },
+  productsByCategory: {
+    data: [],
+    error: null,
+    loading: false
+  },
+  productsByDepartment: {
+    data: [],
+    error: null,
+    loading: false
+  },
+  categoriesByDepartment: {
+    data: [],
+    error: null,
+    loading: false
   }
 };
