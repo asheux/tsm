@@ -1,3 +1,3 @@
-import SignUp from './SignUp';
+import SignUpContainer from './SignUpContainer';
 
-export default SignUp;
+export default SignUpContainer;

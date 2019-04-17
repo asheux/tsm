@@ -11,13 +11,15 @@ const productsByCategoryReducer = (state = initialState.productsByCategory, acti
     case types.FETCH_PRODUCTS_BY_CATEGORY_FAILURE:
       return {
         ...state,
-        error: action.error
+        errors: action.errors,
+        loading: false
       };
     case types.FETCH_PRODUCTS_BY_CATEGORY_SUCCESS:
       return {
         ...state,
-        data: action.data
-      }
+        data: action.data,
+        loading: false
+      };
     default:
       return state;
   }

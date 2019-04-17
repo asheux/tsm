@@ -6,11 +6,13 @@ const DisplayCard = ({...props}) => {
     filterId,
     title, price,
     onClick,
-    description
+    description,
+    mykey
   } = props;
   return (
     <div className="card-div col-md-3">
       <div
+        data-key={mykey}
         className="card"
         onClick={onClick}
         onKeyPress={onClick}
@@ -18,13 +20,13 @@ const DisplayCard = ({...props}) => {
         id={filterId}
         tabIndex="0"
       >
-        <div className="card-image">
-          <img src={image} alt="black coffee" />
+        <div data-key={mykey} className="card-image">
+          <img data-key={mykey} src={image} alt="black coffee" />
         </div>
-        <div className="card-body">
-          <h4><b>{title}</b></h4>
-          <small>{description}</small>
-          <p className="price">&euro; {price}</p>
+        <div data-key={mykey} className="card-body">
+          <h4 data-key={mykey}><b data-key={mykey}>{title}</b></h4>
+          <small data-key={mykey}>{description}</small>
+          <p data-key={mykey} className="price">&euro; {price}</p>
         </div>
       </div>
     </div>

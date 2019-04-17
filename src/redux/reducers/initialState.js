@@ -1,32 +1,77 @@
 export default {
   departments: {
     data: [],
-    error: null,
+    errors: null,
     loading: false
   },
   categories: {
     data: [],
-    error: null,
+    errors: null,
     loading: false
   },
   products: {
     data: [],
-    error: null,
+    errors: null,
     loading: false
   },
   productsByCategory: {
     data: [],
-    error: null,
+    errors: null,
     loading: false
   },
   productsByDepartment: {
     data: [],
-    error: null,
+    errors: null,
     loading: false
   },
   categoriesByDepartment: {
     data: [],
-    error: null,
+    errors: null,
+    loading: false
+  },
+  singleProduct: {
+    data: {},
+    errors: null,
+    loading: false
+  },
+  reviews: {
+    data: [],
+    errors: null,
+    loading: false
+  },
+  userData: {
+    data: {},
+    errors: null,
+    loading: false
+  },
+  attributes: {
+    data: [],
+    errors: null,
+    loading: false
+  },
+  uniqueid: {
+    data: {},
+    errors: null,
+    loading: false
+  },
+  shoppingcart: {
+    data: {},
+    errors: null,
+    loading: false
+  },
+  shoppingCart: {
+    data: [],
+    errors: null,
+    loading: false
+  },
+  totalAmount: {
+    data: {},
+    errors: null,
+    loading: false
+  },
+  updataItem: {
+    data: {},
+    errors: null,
     loading: false
   }
 };

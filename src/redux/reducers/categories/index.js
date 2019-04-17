@@ -11,13 +11,15 @@ const categoriesReducer = (state = initialState.categories, action) => {
     case types.FETCH_CATEGORIES_FAILURE:
       return {
         ...state,
-        error: action.error
+        errors: action.errors,
+        loading: false
       };
     case types.FETCH_CATEGORIES_SUCCESS:
       return {
         ...state,
-        data: action.data
-      }
+        data: action.data,
+        loading: false
+      };
     default:
       return state;
   }

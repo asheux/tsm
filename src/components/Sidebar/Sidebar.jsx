@@ -9,7 +9,9 @@ const Sidebar = ({...props}) => {
         <ul className="nav flex-column">
           <h4>Categories</h4>
           {menu.map(item =>
-            <li className="nav-item" key={item.category_id}>
+            <li className="nav-item"
+              data-toggle="tooltip"
+              title={item.description} key={item.category_id}>
               <Link
                 to={`/products/inCategory/${item.category_id}`}
                 data-key={item.category_id}

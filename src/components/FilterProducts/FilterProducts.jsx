@@ -1,8 +1,9 @@
 import React from 'react';
-import image from '../../static/images-shirt2.png';
+import * as image_store from '../../utils/imageUrl';
 import DisplayCard from '../DisplayCard';
 
-const FilterCategory = ({itemDetails, handleCardClick}) => {
+const FilterCategory = ({...props}) => {
+  const { itemDetails, handleCardClick } = props;
   return (
     <React.Fragment>
       <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -20,8 +21,9 @@ const FilterCategory = ({itemDetails, handleCardClick}) => {
   						{itemDetails.map(details =>
                 <DisplayCard
                   key={details.id}
+                  mykey={details.id}
                   title={details.title}
-                  image={image}
+                  image={image_store.IMAGE_URL + details.thumbnail}
                   price={details.price}
                   onClick={handleCardClick}
                   filterId={details.title}
@@ -30,7 +32,7 @@ const FilterCategory = ({itemDetails, handleCardClick}) => {
               )}
   					</div>
   				</div>
-  				<a href="!#" className=" menu_btn btn btn-danger">view more</a><br /><br />
+  				<a href="/" className=" menu_btn btn btn-danger">view more</a><br /><br />
   			</div>
       </main>
     </React.Fragment>

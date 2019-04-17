@@ -1,9 +1,79 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import image from '../../static/images-shirt2.png';
+import * as image_store from '../../utils/imageUrl';
 import Footer from '../Footer';
+import AddReviewForm from '../AddReviewForm';
+import AllReviews from '../AllReviews';
 
-const ShowSingleItem = () => {
+const filterColors = (
+  colorAttributes,
+  handleColorClick,
+  activeColorItem,
+  activeColorItemStyle
+) => (
+  <div className="color-filter">
+    {colorAttributes.map(color =>
+      <span
+        onClick={handleColorClick}
+        data-key={color.attribute_value}
+        style={activeColorItem === color.attribute_value ? activeColorItemStyle : {}}
+        key={color.attribute_value_id}
+        className={`color ${color.attribute_value}`}>
+      </span>
+    )}
+  </div>
+);
+
+const filterSize = (
+  sizeAttributes,
+  activeSizeItem,
+  handleSizeClick,
+  activeSizeItemStyle
+) => (
+  <div className="size-filter">
+    {sizeAttributes.map(size =>
+      <span
+        style={activeSizeItem === size.attribute_value ? activeSizeItemStyle : {}}
+        onClick={handleSizeClick}
+        key={size.attribute_value_id}
+        className={`size`}>
+        {size.attribute_value}
+      </span>
+    )}
+  </div>
+);
+
+const renderImage = (productDetails) => (
+  <React.Fragment>
+    <div className="preview-pic tab-content">
+      <div className="tab-pane active" id="pic-1">
+        <img alt="black here"
+          src={image_store.IMAGE_URL + productDetails.thumbnail}/>
+      </div>
+    </div>
+    <div className="preview-thumbnail-image">
+      <ul className="preview-thumbnail nav nav-tabs">
+        <li><img alt="black here" src={image_store.IMAGE_URL + productDetails.image} /></li>
+        <li><img alt="black here" src={image_store.IMAGE_URL + productDetails.image_2} /></li>
+      </ul>
+    </div>
+  </React.Fragment>
+);
+
+const ShowSingleItem = ({...props}) => {
+  const {
+    productDetails, reviews,
+    sizeAttributes, colorAttributes,
+    handleSizeClick, handleColorClick,
+    activeSizeItem, activeColorItem,
+    handleAddToCart, error, loading
+  } = props;
+  const activeSizeItemStyle = {
+    background: '#DC143C',
+    color: '#ffffff'
+  };
+  const activeColorItemStyle = {
+    border: '5px solid #E6E6FA'
+  };
 
   return (
     <div className="">
@@ -12,63 +82,51 @@ const ShowSingleItem = () => {
     			<div className="container-fliud">
     				<div className="wrapper row">
     					<div className="preview col-md-6">
-
-    						<div className="preview-pic tab-content">
-    						  <div className="tab-pane active" id="pic-1"><img alt="black here" src={image} /></div>
-    						  <div className="tab-pane" id="pic-2"><img alt="black here" src={image} /></div>
-    						  <div className="tab-pane" id="pic-3"><img alt="black here" src={image} /></div>
-    						  <div className="tab-pane" id="pic-4"><img alt="black here" src={image} /></div>
-    						  <div className="tab-pane" id="pic-5"><img alt="black here" src={image} /></div>
-    						</div>
-    						<ul className="preview-thumbnail nav nav-tabs">
-    						  <li className="active"><Link to="!#" data-target="#pic-1" data-toggle="tab"><img alt="black here" src={image} /></Link></li>
-    						  <li><Link to="!#" data-target="#pic-2" data-toggle="tab"><img alt="black here" src={image} /></Link></li>
-    						  <li><Link to="!#" data-target="#pic-3" data-toggle="tab"><img alt="black here" src={image} /></Link></li>
-    						  <li><Link to="!#" data-target="#pic-4" data-toggle="tab"><img alt="black here" src={image} /></Link></li>
-    						  <li><Link to="!#" data-target="#pic-5" data-toggle="tab"><img alt="black here" src={image} /></Link></li>
-    						</ul>
-
+    						{renderImage(productDetails)}
     					</div>
     					<div className="details col-md-6">
-    						<h3 className="product-title">men's shoes fashion</h3>
+    						<h3 className="product-title">{productDetails.name}</h3>
     						<div className="rating">
     							<div className="stars">
-    								<span className="fa fa-star checked"></span>
-    								<span className="fa fa-star checked"></span>
-    								<span className="fa fa-star checked"></span>
-    								<span className="fa fa-star"></span>
-    								<span className="fa fa-star"></span>
+                    <i className="far fa-star checked"></i>
+                    <i className="far fa-star checked"></i>
+                    <i className="far fa-star checked"></i>
+                    <i className="far fa-star"></i>
+                    <i className="far fa-star"></i>
     							</div>
+                  <span className="review-no">{reviews.length} reviews</span>
     						</div>
                 <div>
-                  <h6 className="price">current price: <span>&euro; 18.50</span></h6>
+                  <h6 className="price">current price: <span>&euro; {productDetails.price}</span></h6>
                 </div>
-    						<p className="product-description">Suspendiss quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-    						<h6 className="colors">colors</h6>
-                <div class="color-filter">
-                  <span className="color orange"></span>
-                  <span className="color green"></span>
-                  <span className="color pink"></span>
-                  <span className="color purple"></span>
-                  <span className="color red"></span>
-                  <span className="color blue"></span>
-                  <span className="color white"></span>
-                </div>
-                <h6 className="sizes">sizes</h6>
-                <div className="size-filter">
-                  <span className="size active" data-toggle="tooltip" title="small">S</span>
-                  <span className="size" data-toggle="tooltip" title="medium">M</span>
-                  <span className="size" data-toggle="tooltip" title="large">L</span>
-                  <span className="size" data-toggle="tooltip" title="xtra large">XL</span>
-                  <span className="size xtra-xtra-large" data-toggle="tooltip" title="xtra xtra large">XXL</span>
-                </div>
+    						<p className="product-description">{productDetails.description}</p>
+    						<h6 className="colors">Color</h6>
+                {filterColors(
+                  colorAttributes, handleColorClick,
+                  activeColorItem, activeColorItemStyle
+                )}
+                <h6 className="colors">Size</h6>
+                {filterSize(
+                  sizeAttributes, activeSizeItem,
+                  handleSizeClick,activeSizeItemStyle
+                )}
     						<div className="action">
-    							<button className="add-to-cart btn btn-default" type="button">add to cart</button>
-    						</div>
+    							<button
+                    onClick={handleAddToCart}
+                    className="add-to-cart btn btn-default"
+                    type="button">{loading ? 'Adding to cart...' : 'Add to cart'}</button>
+    						</div><br />
+                <span className="alert-danger">{error}</span>
     					</div>
     				</div>
     			</div>
-    		</div>
+    		</div><br />
+        <div className="row">
+          <AllReviews
+            productReviews={reviews}
+          />
+          <AddReviewForm />
+        </div>
     	</div>
       <Footer />
     </div>

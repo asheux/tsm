@@ -15,10 +15,10 @@ const store = configureAppStore(initialState);
 // wrap the entire app tree in the ErrorBoundary
 const ErrorBoundary = bugsnagClient.getPlugin('react')
 
-const renderApp = () => render(
+const renderApp = (props) => render(
   <ErrorBoundary>
     <Provider store={store}>
-      <AppRoutes />
+      <AppRoutes {...props} />
     </Provider>
   </ErrorBoundary>,
   document.getElementById('root')

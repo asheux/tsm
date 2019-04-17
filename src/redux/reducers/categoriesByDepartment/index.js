@@ -11,13 +11,15 @@ const categoriesDepartmentReducer = (state = initialState.categoriesByDepartment
     case types.FETCH_CATEGORIES_BY_DEPARTMENT_FAILURE:
       return {
         ...state,
-        error: action.error
+        errors: action.errors,
+        loading: false
       };
     case types.FETCH_CATEGORIES_BY_DEPARTMENT_SUCCESS:
       return {
         ...state,
-        data: action.data
-      }
+        data: action.data,
+        loading: false
+      };
     default:
       return state;
   }

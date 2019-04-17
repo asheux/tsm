@@ -10,7 +10,7 @@ class Products extends Component {
       products: [],
       departments: [],
       categories: [],
-      activeItem: 'Regional'
+      activeItem: 'All products'
     };
     this.handleDepartmentClick = this.handleDepartmentClick.bind(this);
   };
@@ -28,9 +28,10 @@ class Products extends Component {
     })
   }
 
-  handleCardClick = () => {
+  handleCardClick = (e) => {
+    const productId = e.target.getAttribute('data-key');
     const { history } = this.props;
-    history.push('/products/details')
+    history.push(`/products/${productId}`)
   }
 
   mapDisplayCardDetails = (productsArray) => {
@@ -40,11 +41,28 @@ class Products extends Component {
           id: product.product_id,
           title: product.name,
           price: product.price,
-          description: product.description
+          description: product.description,
+          discountedPrice: product.discounted_price,
+          thumbnail: product.thumbnail
         };
       return displayProductList.push(detailsList)
     })
     return displayProductList;
+  }
+
+  handleClick = (e) => {
+    const value = e.target.innerHTML;
+    const { productsActions, categoriesData, departmentData  } = this.props;
+    productsActions().then(data => {
+      if(data.data) {
+        this.setState({
+          products: data.data.rows,
+          departments: departmentData.data,
+          categories: categoriesData.data.rows,
+          activeItem: value
+        });
+      }
+    });
   }
 
   handleCategoryClick = (e) => {
@@ -82,6 +100,8 @@ class Products extends Component {
     return (
       <React.Fragment>
         <Navbar
+          {...this.props}
+          handleClick={this.handleClick}
           menuItems={departments.length === 0 ? departmentData.data : departments}
           handleItemClick={this.handleDepartmentClick}
           activeItem={activeItem}
@@ -89,6 +109,7 @@ class Products extends Component {
         <div className="container-fluid">
           <div className="row">
             <Sidebar
+              {...this.props}
               menu={!categories
                 ?
                 (
@@ -100,6 +121,7 @@ class Products extends Component {
               handleSidebarClick={this.handleCategoryClick}
             />
             <FilterProducts
+              {...this.props}
               itemDetails={this.mapDisplayCardDetails(products)}
               handleCardClick={this.handleCardClick}
             />

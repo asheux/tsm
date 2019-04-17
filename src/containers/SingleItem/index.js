@@ -1,3 +1,3 @@
-import SingleItem from './SingleItem';
+import SingleItemContainer from './SingleItemContainer';
 
-export default SingleItem;
+export default SingleItemContainer;
