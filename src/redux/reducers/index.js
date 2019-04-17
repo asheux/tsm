@@ -15,6 +15,9 @@ import addtocartReducer from './addtocart';
 import shoppingcartReducer from './shoppingcart';
 import totalAmountReducer from './totalAmount';
 import updataItemReducer from './updateitem';
+import deleteItemReducer from './deleteitem';
+import customerReducer from './customer';
+import fetchfetchcustomerReducer from './getCustomerDetails';
 
 const rootReducer = combineReducers({
   departments: departmentsReducer,
@@ -32,7 +35,10 @@ const rootReducer = combineReducers({
   shoppingcart: addtocartReducer,
   shoppingcartData: shoppingcartReducer,
   totalAmount: totalAmountReducer,
-  updateitem: updataItemReducer
+  updateitem: updataItemReducer,
+  deleteitem: deleteItemReducer,
+  updateCustomer: customerReducer,
+  fetchCustomer: fetchfetchcustomerReducer
 });
 
 export default rootReducer;

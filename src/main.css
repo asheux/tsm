@@ -587,6 +587,7 @@ h1 {
 
 .btn-default {
   background-color: #DC143C;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   color: white;
   border: none;
   -webkit-transition: background .3s ease;
@@ -671,8 +672,8 @@ h1 {
 }
 
 .all-review-container {
-  padding: 4em;
   overflow-y: scroll;
+  height: 440px;
 }
 
 .reviewer-name {
@@ -714,4 +715,67 @@ h1 {
 
 .cart-header {
   margin-top: 1.5em;
+}
+
+/* Shipping Address form */
+
+.shipping {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+
+.pay {
+  float: right;
+}
+
+.back-btn {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background-color: white;
+  color: #DC143C;
+}
+
+.back-btn:hover {
+  background-color: white;
+  color: #DC143C;
+}
+
+
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+  box-sizing: border-box;
+
+  height: 40px;
+
+  padding: 10px 12px;
+
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+.stripe-card {
+  color: #32325d;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-smoothing: antialiased;
+  font-size: 16px;
 }

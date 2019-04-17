@@ -3,15 +3,18 @@ import ShoppingCart from './ShoppingCart';
 import shoppingcartActions from '../../redux/actionCreators/shoppingcart';
 import totalAmountActions from '../../redux/actionCreators/totalAmount';
 import updateItemActions from '../../redux/actionCreators/updateitem';
+import deleteItemActions from '../../redux/actionCreators/deleteitem';
 
 const mapStateToProps = ({
   shoppingcartData,
   totalAmount,
-  updateitem
+  updateitem,
+  deleteitem
 }) => ({
   cartData: shoppingcartData,
   shoppingCartTotal: totalAmount,
-  updatedData: updateitem
+  updatedData: updateitem,
+  deleteCart: deleteitem
 });
 
 export default connect(
@@ -19,6 +22,7 @@ export default connect(
   {
     shoppingcartActions,
     totalAmountActions,
-    updateItemActions
+    updateItemActions,
+    deleteItemActions
   }
 )(ShoppingCart);

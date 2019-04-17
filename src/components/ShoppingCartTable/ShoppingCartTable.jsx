@@ -7,12 +7,12 @@ const ShoppingCartTable = ({...props}) => {
     handleChange,
     cartData,
     handleDelete,
-    shoppingCartTotal } = props;
+    shoppingCartTotal, totalItemInCart } = props;
   const shoppingCartData = cartData.data;
   const totalAmount = shoppingCartTotal.data;
   return (
       <div className="container">
-        <h4 className="cart-header">{`${shoppingCartData.length} item(s) in your cart`}</h4>
+        <h4 className="cart-header">{`${totalItemInCart} item(s) in your cart`}</h4>
         {shoppingCartData.length !== 0 ?
         <table id="cart" className="table table-hover table-condensed">
          <thead>
@@ -41,13 +41,18 @@ const ShoppingCartTable = ({...props}) => {
               <td>
             		<select onChange={handleChange}
                   data-key={cartData.item_id}
-                  value={cartData.quantity} className="form-control" >
+                  value={cartData.quantity}
+                  className="form-control" >
             			<option value="1">1</option>
             			<option value="2">2</option>
             			<option value="3">3</option>
             			<option value="4">4</option>
                   <option value="5">5</option>
             			<option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
             		</select>
             	</td>
     					<td data-th="Subtotal" className="text-center">&euro; {cartData.subtotal}</td>
@@ -59,10 +64,10 @@ const ShoppingCartTable = ({...props}) => {
         )}
   			<tfoot>
   				<tr>
-  					<td><Link to="/" className="btn btn-default"><i className="fa fa-angle-left"></i> Continue Shopping</Link></td>
+  					<td><Link to="/" className="add-to-cart back-btn btn btn-default"><i className="fa fa-angle-left"></i> Continue Shopping</Link></td>
   					<td colSpan="2" className="hidden-xs"></td>
   					<td className="hidden-xs text-center"><strong>Total &euro;{totalAmount.total_amount}</strong></td>
-  					<td><a href="https://www.paypal.com/webapps/shoppingcart?mfid=1546373779156_cb91e3a2b2dc7&flowlogging_id=cb91e3a2b2dc7#/checkout/shoppingCart" className="btn btn-success"> Checkout <i className="fa fa-angle-right"></i></a></td>
+  					<td><Link to="/customers/address" className="add-to-cart btn btn-success"> Checkout <i className="fa fa-angle-right"></i></Link></td>
   				</tr>
   			</tfoot>
   		</table>

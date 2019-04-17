@@ -5,8 +5,11 @@ import SingleItem from '../containers/SingleItem';
 import Login from '../containers/Login';
 import SignUp from '../containers/SignUp';
 import ShoppingCart from '../containers/ShoppingCart';
+import Customer from '../containers/Customer';
+import CustomerAddress from '../containers/CustomerAddress';
+import Authorization from '../utils';
 
-export const AppRoutes = (props) => (
+export const AppRoutes = () => (
   <Router>
     <React.Fragment>
       <Switch>
@@ -14,11 +17,13 @@ export const AppRoutes = (props) => (
           "/",
           "/products/inCategory/:id",
           "/products/inDepartment/:id"
-        ]} {...props} component={Dashboard} exact/>
-        <Route path="/products/:id" {...props} component={SingleItem} exact/>
-        <Route path="/auth/login" {...props} component={Login} exact/>
+        ]} component={Dashboard} exact/>
+        <Route path="/products/:id" component={SingleItem} exact/>
+        <Route path="/auth/login" component={Login} exact/>
         <Route path="/auth/register" component={SignUp} exact />
         <Route path="/shoppingcart/:cartId" component={ShoppingCart} exact />
+        <Route path="/customer" component={Authorization(Customer)} exact />
+        <Route path="/customers/address" component={Authorization(CustomerAddress)} exact />
       </Switch>
     </React.Fragment>
   </Router>

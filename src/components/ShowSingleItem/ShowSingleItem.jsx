@@ -122,10 +122,14 @@ const ShowSingleItem = ({...props}) => {
     			</div>
     		</div><br />
         <div className="row">
-          <AllReviews
-            productReviews={reviews}
-          />
-          <AddReviewForm />
+          <div className="col-md-6">
+            <AllReviews
+              productReviews={reviews}
+            />
+          </div>
+          <div className="col-md-6">
+            <AddReviewForm />
+          </div>
         </div>
     	</div>
       <Footer />

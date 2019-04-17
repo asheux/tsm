@@ -73,5 +73,20 @@ export default {
     data: {},
     errors: null,
     loading: false
+  },
+  deleteItem: {
+    data: {},
+    errors: null,
+    loading: false
+  },
+  customer: {
+    data: {},
+    errors: null,
+    loading: false
+  },
+  customerDetails: {
+    data: {},
+    errors: null,
+    loading: false
   }
 };

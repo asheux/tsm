@@ -4,15 +4,13 @@ const FormInput = ({...props}) => {
   const {
     type, name, value,
     placeholder, onChange,
-    iconClass, errorMessage
+    errorMessage, required
   } = props;
   return (
     <React.Fragment>
       <div className="input-group">
-        <div className="input-group-prepend">
-          <span className="input-group-text"><i className={iconClass}></i></span>
-        </div>
         <input
+          required={required}
           type={type}
           name={name}
           value={value}

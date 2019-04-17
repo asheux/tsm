@@ -16,7 +16,7 @@ const Button = (handleSubmit) => {
         <label><input type="checkbox" value=""/> Remember me</label>
       </div><br />
       <button type="submit" onClick={handleSubmit} className="auth-btn btn btn-default">
-        <span className="glyphicon glyphicon-off"></span> Login
+        <span className="glyphicon glyphicon-off"></span> Sign In
       </button>
       <span>Or </span>
       <button type="submit" className="auth-btn btn btn-info">
@@ -45,29 +45,31 @@ const LoginForm = ({...props}) => {
       <div className="login">
         <div className="container auth-user">
           <div className="row logo-row">
-            <h1><i className="fa fa-lock" aria-hidden="true"></i> Login</h1>
+            <h1><i className="fa fa-lock" aria-hidden="true"></i> Sign In</h1>
           </div><br /><br />
-          <FormInput
-            type='text'
-            name='email'
-            placeholder='email address'
-            value={attributes.email}
-            onChange={handleChange}
-            errorMessage={errorMessages.emailError}
-            iconClass='fas fa-user-tie'
-          />
-          <br />
-          <FormInput
-            type='password'
-            name='password'
-            placeholder='password'
-            value={attributes.password}
-            onChange={handleChange}
-            errorMessage={errorMessages.passwordError}
-            iconClass='fa fa-key icon'
-          />
-          <br />
-          {Button(handleSubmit)}
+          <form onSubmit={handleSubmit}>
+            <FormInput
+              type='text'
+              name='email'
+              required="required"
+              placeholder='email address'
+              value={attributes.email}
+              onChange={handleChange}
+              errorMessage={errorMessages.emailError}
+            />
+            <br />
+            <FormInput
+              type='password'
+              name='password'
+              required='required'
+              placeholder='password'
+              value={attributes.password}
+              onChange={handleChange}
+              errorMessage={errorMessages.passwordError}
+            />
+            <br />
+            {Button()}
+          </form>
         </div>
         <Footer />
       </div>

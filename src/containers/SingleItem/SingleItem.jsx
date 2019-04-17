@@ -96,7 +96,6 @@ class SingleItem extends Component {
       activeSizeItem,
       activeColorItem
     } = this.state;
-    console.log(this.props);
     return (
       <React.Fragment>
         <Navbar

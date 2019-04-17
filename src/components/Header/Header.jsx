@@ -9,7 +9,7 @@ const Header = ({...props}) => {
   if (token) {
     userInfo = auth.userDetailsFromToken(token);
   }
-  const { cartData } = props;
+  const { cartData, totalItemInCart } = props;
 
   return (
     <div className="account row">
@@ -23,18 +23,18 @@ const Header = ({...props}) => {
               aria-expanded="false">Hi!
               <Link to="!#" className="auth">{userInfo.name}</Link>
             </li>
-            <span class="caret"></span>
-            <div class="dropdown-menu">
-              <Link class="dropdown-item" to="/mybag"><i className="fas fa-cart-arrow-down"></i> My bag</Link>
-              <Link class="dropdown-item" to="/profile"><i class="fas fa-user profile"></i> Profile</Link>
-              <div class="dropdown-divider"></div>
-              <Link class="dropdown-item" onClick={handleLogout} to="/"><i class="fas fa-sign-out-alt"></i> Log out</Link>
+            <span className="caret"></span>
+            <div className="dropdown-menu">
+              <Link className="dropdown-item" to="/mybag"><i className="fas fa-cart-arrow-down"></i> My bag</Link>
+              <Link className="dropdown-item" to="/customer"><i className="fas fa-user profile"></i> Profile</Link>
+              <div className="dropdown-divider"></div>
+              <Link className="dropdown-item" onClick={handleLogout} to="/"><i className="fas fa-sign-out-alt"></i> Log out</Link>
             </div>
           </ul>
           :
           <ul className="account-ul">
             <li className="nav-item">Hi!
-              <Link to="/auth/login" className="auth">Login</Link>
+              <Link to="/auth/login" className="auth">Sign In</Link>
             </li>
             <li className="nav-item">Or
               <Link to="/auth/register" className="auth">Register</Link>
@@ -54,7 +54,7 @@ const Header = ({...props}) => {
             <li className="nav-item">
               <Link to="/shoppingcart/:cartId" className="item">
                 <i className="fas fa-cart-arrow-down">
-                  <span class="badge badge-danger">{!cartData ? 0 : cartData.data.length}</span>
+                  <span className="badge badge-danger">{(cartData.data.length - 1) + totalItemInCart}</span>
                 </i>
               </Link>
             </li>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Footer from '../Footer';
 import FormInput from '../FormInput';
 
-const Button = (handleSubmit) => {
+const Button = () => {
   const divStyle = {
     border: '1px solid black',
     height: '1px',
@@ -11,8 +11,8 @@ const Button = (handleSubmit) => {
   };
   return (
     <React.Fragment>
-      <button type="submit" onClick={handleSubmit} className="auth-btn btn btn-default">
-        <span className="glyphicon glyphicon-off"></span> Register
+      <button type="submit" className="auth-btn btn btn-default">
+        <span className="glyphicon glyphicon-off"></span> Sign Up
       </button>
       <span>Or </span>
       <button type="submit" className="auth-btn btn btn-info">
@@ -34,39 +34,41 @@ const SignUpForm = ({...props}) => {
       <div className="register">
         <div className="container auth-user">
           <div className="row logo-row">
-            <h1><i className="fa fa-lock" aria-hidden="true"></i> Register</h1>
+            <h1> Sign Up</h1>
           </div><br /><br />
-          <FormInput
-            type='text'
-            name='name'
-            value={attributes.name}
-            placeholder='your name'
-            onChange={handleChange}
-            errorMessage={errorMessages.nameError}
-            iconClass='fas fa-user-tie'
-          />
-          <br />
-          <FormInput
-            type='text'
-            name='email'
-            value={attributes.email}
-            placeholder='email address'
-            onChange={handleChange}
-            errorMessage={errorMessages.emailError}
-            iconClass='fas fa-user-tie'
-          />
-          <br />
-          <FormInput
-            type='password'
-            name='password'
-            value={attributes.password}
-            placeholder='password'
-            onChange={handleChange}
-            errorMessage={errorMessages.passwordError}
-            iconClass='fa fa-key icon'
-          />
-          <br />
-          {Button(handleSubmit)}
+          <form onSubmit={handleSubmit}>
+            <FormInput
+              type='text'
+              name='name'
+              required='required'
+              value={attributes.name}
+              placeholder='your name'
+              onChange={handleChange}
+              errorMessage={errorMessages.nameError}
+            />
+            <br />
+            <FormInput
+              type='text'
+              name='email'
+              required='required'
+              value={attributes.email}
+              placeholder='email address'
+              onChange={handleChange}
+              errorMessage={errorMessages.emailError}
+            />
+            <br />
+            <FormInput
+              type='password'
+              name='password'
+              required='required'
+              value={attributes.password}
+              placeholder='password'
+              onChange={handleChange}
+              errorMessage={errorMessages.passwordError}
+            />
+            <br />
+            {Button()}
+          </form>
         </div>
         <Footer />
       </div>

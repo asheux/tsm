@@ -35,7 +35,7 @@ class Login extends Component {
 
     loginActions(payload).then(data => {
       if (!data.errors && data.data) {
-        const token = data.data.accessToken.split(' ')[1];
+        const token = data.data.accessToken;
         auth.setToken(token);
         history.push('/');
       }
@@ -59,7 +59,7 @@ class Login extends Component {
 
   render() {
     const { errors, payload } = this.state;
-    
+
     if (auth.isAuthenticated()) {
       return <Redirect to="/" />
     }

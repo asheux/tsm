@@ -36,7 +36,7 @@ class SignUp extends Component {
     const { signupActions, history } = this.props;
     signupActions(payload).then(data => {
       if(!data.errors && data.data) {
-        const token = data.data.accessToken.split(' ')[1];
+        const token = data.data.accessToken;
         auth.setToken(token);
         history.push('/');
       }

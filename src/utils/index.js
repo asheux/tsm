@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 
@@ -20,25 +19,17 @@ export const userDetailsFromToken = (token) => {
 
 export const isAuthenticated = () => !!getToken();
 
-export const isAuthorized = () => {
-  const token = getToken();
-  if (token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  }
-  return Boolean(token);
-};
-
 export const logout = () => {
   localStorage.removeItem('accessToken');
 };
 
-const Authorization = Componnt => {
+const Authorization = WrappedComponent => {
   const WithAuth = props => {
     const { location } = props;
-    if(isAuthorized() && isAuthenticated()) {
-      return <Componnt {...props} />;
+    if(isAuthenticated()) {
+      return <WrappedComponent {...props} />;
     }
-    return <Redirect to={{pathname: '/login', state: {from: location}}} />
+    return <Redirect to={{pathname: '/auth/login', state: {from: location}}} />
   }
   return WithAuth;
 }
