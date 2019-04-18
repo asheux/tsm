@@ -3,13 +3,35 @@ import { Link } from 'react-router-dom';
 import * as auth from '../../utils';
 import handleLogout from '../../utils/Logout';
 
+
+/**
+ * This algorithm computes the item in the cart
+ *  @param {*} array
+ */
+const computeTotal = (data) => {
+  if (!data || data.length === 0) return '';
+  let total = 0;
+  for (let i = 0; i < data.length; i+=1) {
+    if (data.length !== 0) {
+      // eslint-disable-next-line
+      Object.keys(data[i]).forEach(item => {
+        if(item === 'quantity') {
+          total += data[i][item];
+        }
+      });
+    }
+  };
+  return total;
+}
+
 const Header = ({...props}) => {
   const token = auth.getToken();
   let userInfo = '';
   if (token) {
     userInfo = auth.userDetailsFromToken(token);
   }
-  const { cartData, totalItemInCart } = props;
+  const { shoppingCart, generatedId } = props;
+  const total = computeTotal(shoppingCart)
 
   return (
     <div className="account row">
@@ -52,9 +74,9 @@ const Header = ({...props}) => {
       <div className="col-md-2">
         <ul className="account-ul">
             <li className="nav-item">
-              <Link to="/shoppingcart/:cartId" className="item">
+              <Link to={`/shoppingcart/${generatedId}`} className="item">
                 <i className="fas fa-cart-arrow-down">
-                  <span className="badge badge-danger">{(cartData.data.length - 1) + totalItemInCart}</span>
+                  <span className="badge badge-danger">{total}</span>
                 </i>
               </Link>
             </li>

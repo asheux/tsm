@@ -3,16 +3,31 @@ import ShoppingCartTable from '../../components/ShoppingCartTable';
 import Navbar from '../../components/Navbar';
 
 class ShoppingCart extends Component {
+  /**
+   * Creates the ShoppingCart Component and initializes state
+   * @constructor
+   * @param {*} props - Super props inherited by Component
+   */
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      shoppingCart: []
+    };
     this.handleChange = this.handleChange.bind(this)
   };
 
+  /**
+   * Ensures that the component that updates the cart in mounted
+   * Lifecycle implementation
+   */
   componentDidMount() {
     this.updateShoppingCart();
   };
 
+  /**
+   * Ensures that the changes are made to the component
+   * Does real time update of the cart
+   */
   updateShoppingCart = () => {
     const {
       match,
@@ -21,14 +36,23 @@ class ShoppingCart extends Component {
     } = this.props;
     const cartId = match.params.cartId;
     if (cartId) {
-      shoppingcartActions(cartId);
+      shoppingcartActions(cartId).then(data => {
+        if (data.data) {
+          this.setState({shoppingCart: data.data})
+        }
+      });
       totalAmountActions(cartId);
     }
   }
 
+  /**
+   * This algorithm computes the item in the cart
+   *  @param {*} array
+   */
   computeTotal = (data) => {
     let total = 0;
     for (let i = 0; i < data.length; i+=1) {
+      // eslint-disable-next-line
     	Object.keys(data[i]).forEach(item => {
         if(item === 'quantity') {
           total += data[i][item];
@@ -38,6 +62,10 @@ class ShoppingCart extends Component {
     return total;
   }
 
+  /**
+   * Listens to events and changes in form inputs
+   *  @param {*} event
+   */
   handleChange = (e) => {
     const value = e.target.value;
     const itemId = e.target.getAttribute('data-key');
@@ -50,6 +78,11 @@ class ShoppingCart extends Component {
     })
   }
 
+  /**
+   * Listens to an onClick event
+   * if event then an item is deleted from cart list
+   *  @param {*} event
+   */
   handleDelete = (e) => {
     e.preventDefault();
     const { match, deleteItemActions } = this.props;
@@ -62,18 +95,20 @@ class ShoppingCart extends Component {
   }
 
   render() {
-    const { cartData } = this.props;
-    const shoppingCartData = cartData.data;
-    const totalItemInCart = this.computeTotal(shoppingCartData);
+    const { shoppingCart } = this.state;
+    const totalItemInCart = this.computeTotal(shoppingCart);
+    const { match } = this.props;
 
     return (
       <React.Fragment>
         <Navbar
           {...this.props}
           menuItems={[]}
-          totalItemInCart={totalItemInCart}
+          generatedId={match.params.cartId}
+          shoppingCart={shoppingCart}
         />
         <ShoppingCartTable
+          generatedId={match.params.cartId}
           totalItemInCart={totalItemInCart}
           handleChange={this.handleChange}
           handleDelete={this.handleDelete}

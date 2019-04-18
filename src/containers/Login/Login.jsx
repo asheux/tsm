@@ -5,6 +5,11 @@ import Navbar from '../../components/Navbar';
 import * as auth from '../../utils';
 
 class Login extends Component {
+  /**
+   * Creates the ShoppingCart Component and initializes state
+   * @constructor
+   * @param {*} props - Super props inherited by Component
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +26,10 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  /**
+   * Listens to events and changes in form inputs
+   *  @param {*} event
+   */
   handleChange = (e) => {
     const { value, name } = e.target;
     const { payload } = this.state;
@@ -28,6 +37,11 @@ class Login extends Component {
     this.setState({payload});
   }
 
+  /**
+   * Listens to an onClick event on a button in a form
+   * if event the the server is queried which then updates the database
+   *  @param {*} event
+   */
   handleSubmit = (e) => {
     e.preventDefault();
     const { loginActions, history } = this.props;

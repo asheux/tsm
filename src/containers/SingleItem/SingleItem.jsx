@@ -3,6 +3,11 @@ import ShowSingleItem from '../../components/ShowSingleItem';
 import Navbar from '../../components/Navbar';
 
 class SingleItem extends Component {
+  /**
+   * Creates the ShoppingCart Component and initializes state
+   * @constructor
+   * @param {*} props - Super props inherited by Component
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -11,19 +16,27 @@ class SingleItem extends Component {
       activeSizeItem: '',
       activeColorItem: '',
       error: '',
+      message: '',
+      cartId: ''
     };
   };
 
+  /**
+   * Ensures that the component that updates the cart in mounted
+   * Lifecycle implementation
+   */
   componentDidMount() {
     const {
       match,
       singleProductActions,
       reviewsActions,
-      attributesActions
+      attributesActions,
+      generateActions
     } = this.props;
     const productId = match.params.id;
     singleProductActions(productId);
     reviewsActions(productId);
+    generateActions();
     attributesActions(productId).then(data => {
       if(data.data) {
          const attributes = data.data;
@@ -46,50 +59,68 @@ class SingleItem extends Component {
     });
   }
 
+  /**
+   * Listens to an onClick event on a data-key attributes
+   * then updates the attribute selected (size)
+   * if event then redirects to the next page
+   *  @param {*} event
+   */
   handleSizeClick = (e) => {
     const value = e.target.innerHTML;
     this.setState({activeSizeItem: value});
   }
 
+  /**
+   * Listens to an onClick event on a data-key attributes
+   * then updates the attribute selected (size)
+   * if event then redirects to the next page
+   *  @param {*} event
+   */
   handleColorClick = (e) => {
     const value = e.target.getAttribute('data-key');
     this.setState({activeColorItem: value});
   }
 
+  /**
+   * Listens to an onClick event on a data-key attributes
+   * Adds item to cart in the data server
+   *  @param {*} event
+   */
   handleAddToCart = (e) => {
     e.preventDefault();
     const { match,
       addtocartActions,
-      history,
-      generateActions
+      generateduniqueId
     } = this.props;
+
     const productId = match.params.id;
     const { activeSizeItem, activeColorItem } = this.state;
     const itemAttributes = `${activeSizeItem}, ${activeColorItem}`;
-    generateActions().then(data => {
-      const generatedId = data.data.cart_id;
-      const payload = {
-        cart_id: generatedId,
-        product_id: productId,
-        attributes: itemAttributes
-      };
-      addtocartActions(payload).then(data => {
-        if (data.data) {
-          history.push(`/shoppingcart/${generatedId}`);
-        }
-        else {
-          this.setState({
-            error: 'please provide more description on the color and size!'
-          });
-        }
-      });
+    const generatedId = generateduniqueId.data.cart_id;
+    const payload = {
+      cart_id: generatedId,
+      product_id: productId,
+      attributes: itemAttributes
+    };
+    addtocartActions(payload).then(data => {
+      if (data.data) {
+        this.setState({
+          message: 'Added to to cart successfully',
+          cartId: generatedId
+        });
+      }
+      else {
+        this.setState({
+          error: 'please provide more description on the color and size!'
+        });
+      }
     });
   }
 
   render() {
     const { singleProduct, productReviews, inShoppingcart } = this.props;
-    const { loading } = inShoppingcart;
-    const { error } = this.state;
+    const { loading, data } = inShoppingcart;
+    const { error, message, cartId } = this.state;
     const {
       sizeAttributes,
       colorAttributes,
@@ -100,11 +131,14 @@ class SingleItem extends Component {
       <React.Fragment>
         <Navbar
           {...this.props}
+          generatedId={cartId}
           menuItems={[]}
+          shoppingCart={data}
         />
         <ShowSingleItem
           {...this.props}
           error={error}
+          message={message}
           loading={loading}
           activeSizeItem={activeSizeItem}
           handleAddToCart={this.handleAddToCart}

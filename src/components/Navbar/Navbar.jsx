@@ -11,7 +11,7 @@ const Navbar = ({...props}) => {
         <Header {...props}/>
         <nav className="navbar navbar-fixed-top navbar-expand-lg navStyle">
             <div className="container">
-                <Link className="navbar-brand js-scroll-trigger" to="/">Shopmate</Link>
+                <Link className="navbar-brand js-scroll-trigger" to="/products">Shopmate</Link>
                 <div className="collapse navbar-collapse " id="collapsibleNavbar">
                     <ul className="navbar-nav m-auto ">
                        <li key='0'
@@ -19,7 +19,7 @@ const Navbar = ({...props}) => {
                            title='All products'
                            className="nav-item">
                            <Link
-                               to='/'
+                               to='/products'
                                data-key='0'
                                className='link-item'
                                style={activeItem === 'All products' ? itemStyle : {}}
@@ -46,7 +46,7 @@ const Navbar = ({...props}) => {
                     <ul className="navbar-nav ml-auto">
                         <div className="searchbar">
                             <input className="search_input" type="text" name="" placeholder="Search..." />
-                            <a href="!#" className="search_icon"><i className="fas fa-search"></i></a>
+                            <i className="fas fa-search"></i>
                         </div>
                     </ul>
                 </div>

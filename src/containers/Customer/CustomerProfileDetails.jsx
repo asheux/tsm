@@ -3,6 +3,11 @@ import CustomerProfile from '../../components/CustomerProfile';
 import Navbar from '../../components/Navbar';
 
 class Customer extends Component {
+  /**
+   * Creates the ShoppingCart Component and initializes state
+   * @constructor
+   * @param {*} props - Super props inherited by Component
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -20,10 +25,18 @@ class Customer extends Component {
     };
   };
 
+  /**
+   * Ensures that the component that updates the cart in mounted
+   * Lifecycle implementation
+   */
   componentDidMount() {
     this.fetchCustomerData();
   }
 
+  /**
+   * Listens to events and changes in form inputs
+   *  @param {*} event
+   */
   handleChange = (e) => {
     const { value, name } = e.target;
     const { userData, confirm } = this.state;
@@ -32,11 +45,20 @@ class Customer extends Component {
     this.setState({userData, confirm});
   }
 
+  /**
+   * Fetchs customer data from the database and updates then
+   * update the component to re-render
+   */
   fetchCustomerData = () => {
     const { fetchcustomerActions } = this.props;
     fetchcustomerActions();
   }
 
+  /**
+   * Listens to an onClick event on a button in a form
+   * if event the the server is queried which then updates the database
+   *  @param {*} event
+   */
   handleSubmit = (e) => {
     e.preventDefault();
     const { userData, confirm } = this.state;

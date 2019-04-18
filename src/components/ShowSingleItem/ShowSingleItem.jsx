@@ -65,7 +65,7 @@ const ShowSingleItem = ({...props}) => {
     sizeAttributes, colorAttributes,
     handleSizeClick, handleColorClick,
     activeSizeItem, activeColorItem,
-    handleAddToCart, error, loading
+    handleAddToCart, error, loading, message
   } = props;
   const activeSizeItemStyle = {
     background: '#DC143C',
@@ -74,6 +74,9 @@ const ShowSingleItem = ({...props}) => {
   const activeColorItemStyle = {
     border: '5px solid #E6E6FA'
   };
+  const response = message || error;
+  const resSuccess = 'alert alert-success';
+  const resErr = 'alert alert-danger';
 
   return (
     <div className="">
@@ -116,7 +119,7 @@ const ShowSingleItem = ({...props}) => {
                     className="add-to-cart btn btn-default"
                     type="button">{loading ? 'Adding to cart...' : 'Add to cart'}</button>
     						</div><br />
-                <span className="alert-danger">{error}</span>
+                {response ? <span className={response === error ? resErr : resSuccess}>{response}</span> : ''}
     					</div>
     				</div>
     			</div>

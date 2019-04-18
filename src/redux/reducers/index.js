@@ -18,6 +18,13 @@ import updataItemReducer from './updateitem';
 import deleteItemReducer from './deleteitem';
 import customerReducer from './customer';
 import fetchfetchcustomerReducer from './getCustomerDetails';
+import customerAddressReducer from './customerAddress';
+import regionsReducer from './shippingRegions';
+import regionReducer from './getAShippingRegion';
+import taxesReducer from './allTaxes';
+import ordersReducer from './postOrder';
+import getOrderReducer from './getOrder';
+import stripeReducer from './stripe';
 
 const rootReducer = combineReducers({
   departments: departmentsReducer,
@@ -38,7 +45,14 @@ const rootReducer = combineReducers({
   updateitem: updataItemReducer,
   deleteitem: deleteItemReducer,
   updateCustomer: customerReducer,
-  fetchCustomer: fetchfetchcustomerReducer
+  fetchCustomer: fetchfetchcustomerReducer,
+  updateCustomerAddress: customerAddressReducer,
+  regions: regionsReducer,
+  region: regionReducer,
+  taxes: taxesReducer,
+  orders: ordersReducer,
+  getOrder: getOrderReducer,
+  stripe: stripeReducer
 });
 
 export default rootReducer;

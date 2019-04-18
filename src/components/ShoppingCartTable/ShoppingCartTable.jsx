@@ -5,9 +5,9 @@ import image from '../../static/images-shirt2.png';
 const ShoppingCartTable = ({...props}) => {
   const {
     handleChange,
-    cartData,
-    handleDelete,
-    shoppingCartTotal, totalItemInCart } = props;
+    cartData, generatedId,
+    handleDelete, totalItemInCart,
+    shoppingCartTotal } = props;
   const shoppingCartData = cartData.data;
   const totalAmount = shoppingCartTotal.data;
   return (
@@ -56,18 +56,18 @@ const ShoppingCartTable = ({...props}) => {
             		</select>
             	</td>
     					<td data-th="Subtotal" className="text-center">&euro; {cartData.subtotal}</td>
-    					<td className="actions" data-th="">
-    						<div onClick={handleDelete} className="cart-btn delete"><i className="fas fa-trash-alt"></i></div>
-    					</td>
     				</tr>
     			</tbody>
         )}
+        <td className="actions" data-th="">
+          <Link onClick={handleDelete} to="" className="cart-btn delete btn btn-default"><i className="fas fa-trash-alt"></i> Empty Cart</Link>
+        </td>
   			<tfoot>
   				<tr>
   					<td><Link to="/" className="add-to-cart back-btn btn btn-default"><i className="fa fa-angle-left"></i> Continue Shopping</Link></td>
   					<td colSpan="2" className="hidden-xs"></td>
   					<td className="hidden-xs text-center"><strong>Total &euro;{totalAmount.total_amount}</strong></td>
-  					<td><Link to="/customers/address" className="add-to-cart btn btn-success"> Checkout <i className="fa fa-angle-right"></i></Link></td>
+  					<td><Link to={`/stripe/${generatedId}/charge`} className="add-to-cart btn btn-success"> Checkout <i className="fa fa-angle-right"></i></Link></td>
   				</tr>
   			</tfoot>
   		</table>

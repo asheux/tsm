@@ -6,6 +6,12 @@ import generateActions from '../../redux/actionCreators/generateUniqueCartId';
 import addtocartActions from '../../redux/actionCreators/addtocart';
 import SingleItem from './SingleItem';
 
+/**
+ * map state to props or updates the
+ * component with infomation from the store
+ * using the action creators
+ *  @param {*} object
+ */
 const mapStateToProps = ({
   singleProduct,
   reviews,

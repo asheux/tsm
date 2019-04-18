@@ -55,7 +55,7 @@ export default {
     loading: false
   },
   shoppingcart: {
-    data: {},
+    data: [],
     errors: null,
     loading: false
   },
@@ -85,6 +85,41 @@ export default {
     loading: false
   },
   customerDetails: {
+    data: {},
+    errors: null,
+    loading: false
+  },
+  customerAddress: {
+    data: {},
+    errors: null,
+    loading: false
+  },
+  regions: {
+    data: [],
+    errors: null,
+    loading: false
+  },
+  region: {
+    data: [],
+    errors: null,
+    loading: false
+  },
+  taxes: {
+    data: [],
+    errors: null,
+    loading: false
+  },
+  orders: {
+    data: {},
+    errors: null,
+    loading: false
+  },
+  getOrder: {
+    data: [],
+    errors: null,
+    loading: false
+  },
+  stripe: {
     data: {},
     errors: null,
     loading: false

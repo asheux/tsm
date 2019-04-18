@@ -3,6 +3,12 @@ import customerActions from '../../redux/actionCreators/customer';
 import fetchcustomerActions from '../../redux/actionCreators/getCustomerDetails';
 import CustomerProfileDetails from './CustomerProfileDetails';
 
+/**
+ * map state to props or updates the
+ * component with infomation from the store
+ * using the action creators
+ *  @param {*} object
+ */
 const mapStateToProps = ({
   updateCustomer,
   fetchCustomer

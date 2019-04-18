@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import FilterProducts from '../../components/FilterProducts';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 class Products extends Component {
+  /**
+   * Creates the ShoppingCart Component and initializes state
+   * @constructor
+   * @param {*} props - Super props inherited by Component
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -15,25 +21,51 @@ class Products extends Component {
     this.handleDepartmentClick = this.handleDepartmentClick.bind(this);
   };
 
+  /**
+   * Ensures that the component that updates the cart in mounted
+   * Lifecycle implementation
+   */
   componentDidMount() {
-    const { productsActions, categoriesData, departmentData  } = this.props;
+    const {
+      productsActions,
+      departmentsActions,
+      categoriesActions } = this.props;
+    departmentsActions().then(data => {
+      if(data.data) {
+        this.setState({departments: data.data});
+      }
+    });
+    categoriesActions().then(data => {
+      if(data.data) {
+        this.setState({categories: data.data.rows})
+      }
+    });
     productsActions().then(data => {
       if(data.data) {
         this.setState({
-          products: data.data.rows,
-          departments: departmentData.data,
-          categories: categoriesData.data.rows
+          products: data.data.rows
         });
       }
     })
   }
 
+  /**
+   * Listens to an onClick event on a data-key attributes on a card
+   * that has details of a product
+   * if event then redirects to the next page
+   *  @param {*} event
+   */
   handleCardClick = (e) => {
     const productId = e.target.getAttribute('data-key');
     const { history } = this.props;
-    history.push(`/products/${productId}`)
+    history.push(`/products/${productId}`);
   }
 
+  /**
+   * maps through an array and formats the data
+   * then returns the formated data
+   *  @param {*} array
+   */
   mapDisplayCardDetails = (productsArray) => {
     const displayProductList = [];
     productsArray.map(product => {
@@ -50,21 +82,31 @@ class Products extends Component {
     return displayProductList;
   }
 
+  /**
+   * Listens to an onClick event on a data-key attributes
+   * in the current document
+   * that has details of a product
+   * if event then redirects to the next page
+   *  @param {*} event
+   */
   handleClick = (e) => {
     const value = e.target.innerHTML;
-    const { productsActions, categoriesData, departmentData  } = this.props;
-    productsActions().then(data => {
-      if(data.data) {
-        this.setState({
-          products: data.data.rows,
-          departments: departmentData.data,
-          categories: categoriesData.data.rows,
-          activeItem: value
-        });
-      }
+    const { productsData, categoriesData, departmentData  } = this.props;
+    this.setState({
+      products: productsData.data.rows,
+      departments: departmentData.data,
+      categories: categoriesData.data.rows,
+      activeItem: value
     });
   }
 
+  /**
+   * Listens to an onClick event on a data-key attributes
+   * in the current document on categories
+   * that has details of a product
+   * if event then redirects to the next page
+   *  @param {*} event
+   */
   handleCategoryClick = (e) => {
     const categoryId = e.target.getAttribute('data-key');
     const { productsByCategoryActions } = this.props;
@@ -75,6 +117,13 @@ class Products extends Component {
     })
   }
 
+  /**
+   * Listens to an onClick event on a data-key attributes
+   * in the current document departments
+   * that has details of a product
+   * if event then redirects to the next page
+   *  @param {*} event
+   */
   handleDepartmentClick = (e) => {
       const value = e.target.innerHTML;
       const departmentId = e.target.getAttribute('data-key');
@@ -127,6 +176,7 @@ class Products extends Component {
             />
           </div>
         </div>
+        <Footer />
       </React.Fragment>
     )
   }
