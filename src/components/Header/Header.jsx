@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as auth from '../../utils';
+import * as accessCart from '../../utils/cart';
 import handleLogout from '../../utils/Logout';
 
 
@@ -30,8 +31,9 @@ const Header = ({...props}) => {
   if (token) {
     userInfo = auth.userDetailsFromToken(token);
   }
-  const { shoppingCart, generatedId } = props;
+  const { shoppingCart } = props;
   const total = computeTotal(shoppingCart)
+  const generatedId = accessCart.getGeneratedCartId();
 
   return (
     <div className="account row">
@@ -47,7 +49,7 @@ const Header = ({...props}) => {
             </li>
             <span className="caret"></span>
             <div className="dropdown-menu">
-              <Link className="dropdown-item" to="/mybag"><i className="fas fa-cart-arrow-down"></i> My bag</Link>
+              <Link className="dropdown-item" to="/myorders"><i className="fas fa-cart-arrow-down"></i> My Orders</Link>
               <Link className="dropdown-item" to="/customer"><i className="fas fa-user profile"></i> Profile</Link>
               <div className="dropdown-divider"></div>
               <Link className="dropdown-item" onClick={handleLogout} to="/"><i className="fas fa-sign-out-alt"></i> Log out</Link>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ShowSingleItem from '../../components/ShowSingleItem';
 import Navbar from '../../components/Navbar';
+import * as accessCart from '../../utils/cart';
 
 class SingleItem extends Component {
   /**
@@ -17,7 +18,6 @@ class SingleItem extends Component {
       activeColorItem: '',
       error: '',
       message: '',
-      cartId: ''
     };
   };
 
@@ -30,13 +30,11 @@ class SingleItem extends Component {
       match,
       singleProductActions,
       reviewsActions,
-      attributesActions,
-      generateActions
+      attributesActions
     } = this.props;
     const productId = match.params.id;
     singleProductActions(productId);
     reviewsActions(productId);
-    generateActions();
     attributesActions(productId).then(data => {
       if(data.data) {
          const attributes = data.data;
@@ -89,14 +87,13 @@ class SingleItem extends Component {
   handleAddToCart = (e) => {
     e.preventDefault();
     const { match,
-      addtocartActions,
-      generateduniqueId
+      addtocartActions
     } = this.props;
 
     const productId = match.params.id;
     const { activeSizeItem, activeColorItem } = this.state;
     const itemAttributes = `${activeSizeItem}, ${activeColorItem}`;
-    const generatedId = generateduniqueId.data.cart_id;
+    const generatedId = accessCart.getGeneratedCartId();
     const payload = {
       cart_id: generatedId,
       product_id: productId,
@@ -105,8 +102,7 @@ class SingleItem extends Component {
     addtocartActions(payload).then(data => {
       if (data.data) {
         this.setState({
-          message: 'Added to to cart successfully',
-          cartId: generatedId
+          message: 'Added to to cart successfully'
         });
       }
       else {
@@ -120,7 +116,7 @@ class SingleItem extends Component {
   render() {
     const { singleProduct, productReviews, inShoppingcart } = this.props;
     const { loading, data } = inShoppingcart;
-    const { error, message, cartId } = this.state;
+    const { error, message } = this.state;
     const {
       sizeAttributes,
       colorAttributes,
@@ -131,7 +127,6 @@ class SingleItem extends Component {
       <React.Fragment>
         <Navbar
           {...this.props}
-          generatedId={cartId}
           menuItems={[]}
           shoppingCart={data}
         />

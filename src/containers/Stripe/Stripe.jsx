@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import StripeForm from '../../components/StripeForm';
 import Navbar from '../../components/Navbar';
+import * as accessCart from '../../utils/cart';
 
 class Stripe extends Component {
   /**
@@ -80,8 +81,8 @@ class Stripe extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { payload, orderPayload } = this.state;
-    const { fetchedCustomer, postorderActions, match } = this.props;
-    const cartID = match.params.cartId;
+    const { fetchedCustomer, postorderActions } = this.props;
+    const cartID = accessCart.getGeneratedCartId();
     const customerID = fetchedCustomer.data.customer_id;
     const orderData = {
       tax_id: orderPayload.tax_id,

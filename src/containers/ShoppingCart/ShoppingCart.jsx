@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ShoppingCartTable from '../../components/ShoppingCartTable';
 import Navbar from '../../components/Navbar';
+import * as accessCart from '../../utils/cart';
 
 class ShoppingCart extends Component {
   /**
@@ -30,11 +31,10 @@ class ShoppingCart extends Component {
    */
   updateShoppingCart = () => {
     const {
-      match,
       shoppingcartActions,
       totalAmountActions
     } = this.props;
-    const cartId = match.params.cartId;
+    const cartId = accessCart.getGeneratedCartId();
     if (cartId) {
       shoppingcartActions(cartId).then(data => {
         if (data.data) {
@@ -85,8 +85,8 @@ class ShoppingCart extends Component {
    */
   handleDelete = (e) => {
     e.preventDefault();
-    const { match, deleteItemActions } = this.props;
-    const cartId = match.params.cartId;
+    const { deleteItemActions } = this.props;
+    const cartId = accessCart.getGeneratedCartId();
     if (cartId) {
       deleteItemActions(cartId).then(data => {
         this.updateShoppingCart();
@@ -97,18 +97,15 @@ class ShoppingCart extends Component {
   render() {
     const { shoppingCart } = this.state;
     const totalItemInCart = this.computeTotal(shoppingCart);
-    const { match } = this.props;
 
     return (
       <React.Fragment>
         <Navbar
           {...this.props}
           menuItems={[]}
-          generatedId={match.params.cartId}
           shoppingCart={shoppingCart}
         />
         <ShoppingCartTable
-          generatedId={match.params.cartId}
           totalItemInCart={totalItemInCart}
           handleChange={this.handleChange}
           handleDelete={this.handleDelete}

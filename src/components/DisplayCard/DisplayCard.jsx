@@ -4,7 +4,9 @@ const DisplayCard = ({...props}) => {
   const {
     image,
     filterId,
-    title, price,
+    title,
+    discounted,
+    price,
     onClick,
     description,
     mykey
@@ -26,6 +28,7 @@ const DisplayCard = ({...props}) => {
         <div data-key={mykey} className="card-body">
           <h4 data-key={mykey}><b data-key={mykey}>{title}</b></h4>
           <small data-key={mykey}>{description}</small>
+          {discounted < price ? '' : <p data-key={mykey} className="price"><small><strike>&euro; {discounted}</strike></small></p>}
           <p data-key={mykey} className="price">&euro; {price}</p>
         </div>
       </div>

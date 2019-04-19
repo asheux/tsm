@@ -25,6 +25,7 @@ import taxesReducer from './allTaxes';
 import ordersReducer from './postOrder';
 import getOrderReducer from './getOrder';
 import stripeReducer from './stripe';
+import getmyordersReducer from './myorders';
 
 const rootReducer = combineReducers({
   departments: departmentsReducer,
@@ -52,7 +53,8 @@ const rootReducer = combineReducers({
   taxes: taxesReducer,
   orders: ordersReducer,
   getOrder: getOrderReducer,
-  stripe: stripeReducer
+  stripe: stripeReducer,
+  myorders: getmyordersReducer
 });
 
 export default rootReducer;

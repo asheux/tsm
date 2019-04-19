@@ -10,6 +10,7 @@ const mapData = (itemDetails, handleCardClick) =>
       title={details.title}
       image={image_store.IMAGE_URL + details.thumbnail}
       price={details.price}
+      discounted={details.discountedPrice}
       onClick={handleCardClick}
       filterId={details.title}
       description={details.description}

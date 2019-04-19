@@ -7,7 +7,7 @@ const AddReviewForm = () => {
         <div className="title">
           <h3>Add your Review</h3>
         </div>
-        <form className="review-form" noValidate="novalidate">
+        <form className="review-form-desc" noValidate="novalidate">
           <div className="form-group ratings-body col-md-12">
             <div className="ratings-form-label">Your Rating</div>
             <div className="stars">

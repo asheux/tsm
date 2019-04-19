@@ -12,7 +12,7 @@ const CustomerAddressForm = ({...props}) => {
     error,
     handleTaxChange,
     regions } = props;
-  
+
   const response = message || error;
   const resSuccess = 'alert alert-success';
   const resErr = 'alert alert-danger';
@@ -89,6 +89,7 @@ const CustomerAddressForm = ({...props}) => {
               className="form-control"
               onChange={handleShippingType}
               >
+              <option value="">Please Select</option>
               {shippingTypes.map(type =>
                 <option key={type.shipping_id} value={type.shipping_id}>{type.shipping_type}</option>
               )}
@@ -104,6 +105,7 @@ const CustomerAddressForm = ({...props}) => {
               name="tax_id"
               onChange={handleTaxChange}
               >
+              <option value="">Please Select</option>
               {taxes.map(tax =>
                 <option key={tax.tax_id} value={tax.tax_id}>{tax.tax_type}</option>
               )}

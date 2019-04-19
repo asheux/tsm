@@ -5,7 +5,7 @@ import image from '../../static/images-shirt2.png';
 const ShoppingCartTable = ({...props}) => {
   const {
     handleChange,
-    cartData, generatedId,
+    cartData,
     handleDelete, totalItemInCart,
     shoppingCartTotal } = props;
   const shoppingCartData = cartData.data;
@@ -21,7 +21,6 @@ const ShoppingCartTable = ({...props}) => {
             <th className="pesa" >Price</th>
             <th className="quantity" >Quantity</th>
   					<th className="text-center subt">Subtotal</th>
-  					<th className="pesa" ></th>
   				</tr>
   			</thead>
   			{shoppingCartData.map(cartData =>
@@ -59,15 +58,14 @@ const ShoppingCartTable = ({...props}) => {
     				</tr>
     			</tbody>
         )}
-        <td className="actions" data-th="">
-          <Link onClick={handleDelete} to="" className="cart-btn delete btn btn-default"><i className="fas fa-trash-alt"></i> Empty Cart</Link>
-        </td>
   			<tfoot>
   				<tr>
   					<td><Link to="/" className="add-to-cart back-btn btn btn-default"><i className="fa fa-angle-left"></i> Continue Shopping</Link></td>
-  					<td colSpan="2" className="hidden-xs"></td>
+            <td className="actions" data-th="">
+              <Link onClick={handleDelete} to="" className="add-to-cart btn btn-success"><i className="fas fa-trash-alt"></i> Empty</Link>
+            </td>
   					<td className="hidden-xs text-center"><strong>Total &euro;{totalAmount.total_amount}</strong></td>
-  					<td><Link to={`/stripe/${generatedId}/charge`} className="add-to-cart btn btn-success"> Checkout <i className="fa fa-angle-right"></i></Link></td>
+  					<td><Link to={`/stripe/charge`} className="add-to-cart btn btn-success"> Checkout <i className="fa fa-angle-right"></i></Link></td>
   				</tr>
   			</tfoot>
   		</table>

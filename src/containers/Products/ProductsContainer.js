@@ -3,6 +3,7 @@ import Products from './Products';
 import productsActions from '../../redux/actionCreators/products';
 import productsByCategoryActions from '../../redux/actionCreators/productsByCategory';
 import productsByDepartmentActions from '../../redux/actionCreators/productsByDepartment';
+import generateActions from '../../redux/actionCreators/generateUniqueCartId';
 import categoriesByDepartmentActions from '../../redux/actionCreators/categoriesByDepartment';
 import departmentsActions from '../../redux/actionCreators/departments';
 import categoriesActions from '../../redux/actionCreators/categories';
@@ -19,6 +20,7 @@ const mapStateToProps = ({
   productsDepartment,
   departments,
   categories,
+  generate,
   categoriesDepartment
 }) => ({
   productsData: products,
@@ -26,7 +28,8 @@ const mapStateToProps = ({
   inDepartment: productsDepartment,
   categoriesInDepartment: categoriesDepartment,
   departmentData: departments,
-  categoriesData: categories
+  categoriesData: categories,
+  generateduniqueId: generate
 });
 
 export default connect(
@@ -37,6 +40,7 @@ export default connect(
     productsByDepartmentActions,
     categoriesByDepartmentActions,
     departmentsActions,
-    categoriesActions
+    categoriesActions,
+    generateActions
   }
 )(Products);

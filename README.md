@@ -25,6 +25,13 @@ $ yarn start
 ```
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+## Stripe Payment testing
+
+- Create an account
+- You will be logged in automatically
+- Select an item and add to cart then go to your cart and place an order
+- If successfull, proceed to payment and use this digits to test stripe `4242 4242 4242 4242`
+
 ## Running the tests
 
 ```

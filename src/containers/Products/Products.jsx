@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FilterProducts from '../../components/FilterProducts';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
+// import * as accessCart from '../../utils/cart';
 import Footer from '../../components/Footer';
 
 class Products extends Component {
@@ -29,7 +30,9 @@ class Products extends Component {
     const {
       productsActions,
       departmentsActions,
+      generateActions,
       categoriesActions } = this.props;
+    generateActions();
     departmentsActions().then(data => {
       if(data.data) {
         this.setState({departments: data.data});

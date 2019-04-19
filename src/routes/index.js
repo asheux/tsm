@@ -8,6 +8,8 @@ import ShoppingCart from '../containers/ShoppingCart';
 import Customer from '../containers/Customer';
 import Stripe from '../containers/Stripe';
 import Authorization from '../utils';
+import MyOrders from '../containers/MyOrders';
+import SingleOrder from '../containers/SingleOrder';
 
 /**
  * Implements routing in the application
@@ -27,7 +29,9 @@ export const AppRoutes = () => (
         <Route path="/auth/register" component={SignUp} exact />
         <Route path="/shoppingcart/:cartId" component={ShoppingCart} exact />
         <Route path="/customer" component={Authorization(Customer)} exact />
-        <Route path="/stripe/:cartId/charge" component={Authorization(Stripe)} exact />
+        <Route path="/stripe/charge" component={Authorization(Stripe)} exact />
+        <Route path="/myorders" component={MyOrders} exact />
+        <Route path="/orders/:order_id" component={SingleOrder} exact />
       </Switch>
     </React.Fragment>
   </Router>

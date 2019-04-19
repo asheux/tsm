@@ -18,20 +18,38 @@ class StripeForm extends Component {
     this.setState({curr: value})
   }
 
+  computeTotal = (data) => {
+    if (!data || data.length === 0) return '';
+    let total = 0;
+    for (let i = 0; i < data.length; i+=1) {
+      if (data.length !== 0) {
+        // eslint-disable-next-line
+        Object.keys(data[i]).forEach(item => {
+          if(item === 'subtotal') {
+            total += data[i][item];
+          }
+        });
+      }
+    };
+    return total;
+  }
+
+
   handleClick = (e) => {
     e.preventDefault();
     const {
       stripe,
       getOrderActions,
       stripeActions,
+      history,
       desc,
       orderID } = this.props;
     const { curr } = this.state;
     stripe.createToken({name: 'brian mboya'}).then(({token}) => {
       if (orderID) {
         getOrderActions(orderID).then(res => {
-          const data = res.data[0];
-          const totalAmount = Math.round(data.subtotal) * 100;
+          const amount = this.computeTotal(res.data);
+          const totalAmount = Math.round(amount) * 100;
           const payload = {
             stripeToken: token.id,
             description: desc,
@@ -42,8 +60,13 @@ class StripeForm extends Component {
           stripeActions(payload).then(data => {
             if (data.data) {
               this.setState({
-                stripeSuccess: 'Payment successfull!! Thank you for shopping with us.'
+                stripeSuccess: data.data.outcome.seller_message
               });
+              setTimeout(
+                () =>
+                  history.push(`/orders/${orderID}`),
+                2000
+              );
             }
           })
         });
@@ -64,7 +87,7 @@ class StripeForm extends Component {
     const response = stripeSuccess || payError;
     const resSuccess = 'alert alert-success';
     const resErr = 'alert alert-danger';
-    
+
     return (
       <div className="container shipping-container">
         <div className="row shipping checkout">
@@ -118,15 +141,6 @@ class StripeForm extends Component {
                 <select className="form-control" >
                   <option value="">Select Curency</option>
                   <option value="USD">USD</option>
-                  <option value="EURO">AMD</option>
-                  <option value="KSH">AED</option>
-                  <option value="KSH">AFN*</option>
-                  <option value="KSH">ANG</option>
-                  <option value="KSH">AUD</option>
-                  <option value="KSH">BDT</option>
-                  <option value="KSH">BBD</option>
-                  <option value="KSH">BND</option>
-                  <option value="KSH">BWP</option>
                 </select>
               </div>
             </div>

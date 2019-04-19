@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as types from '../../constants/generateTypes';
+import * as accessCart from '../../../utils/cart';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -21,7 +22,13 @@ const generateActions = () => dispatch => {
   dispatch(generateRequest());
   const url = `${baseUrl}/shoppingcart/generateUniqueId`;
   return axios(url)
-    .then(response => dispatch(generateSuccess(response.data)))
+    .then(response => {
+      const cartId = response.data.cart_id;
+      if (!accessCart.getGeneratedCartId()) {
+        accessCart.setGeneratedCartId(cartId);
+      }
+      dispatch(generateSuccess(response.data))
+    })
     .catch(error => dispatch(generateFailure(error)))
 }
 

@@ -123,5 +123,10 @@ export default {
     data: {},
     errors: null,
     loading: false
+  },
+  myorders: {
+    data: [],
+    errors: null,
+    loading: false
   }
 };
