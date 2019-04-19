@@ -64,6 +64,7 @@ class StripeForm extends Component {
     const response = stripeSuccess || payError;
     const resSuccess = 'alert alert-success';
     const resErr = 'alert alert-danger';
+    
     return (
       <div className="container shipping-container">
         <div className="row shipping checkout">

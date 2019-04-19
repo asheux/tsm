@@ -12,6 +12,7 @@ const CustomerAddressForm = ({...props}) => {
     error,
     handleTaxChange,
     regions } = props;
+  
   const response = message || error;
   const resSuccess = 'alert alert-success';
   const resErr = 'alert alert-danger';

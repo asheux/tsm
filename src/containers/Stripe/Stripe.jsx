@@ -109,11 +109,6 @@ class Stripe extends Component {
     }
   }
 
-  handleStripeCard = (e) => {
-    const { value } = e.target;
-    console.log(value);
-  }
-
   handleDescription = (e) => {
     const { value } = e.target;
     this.setState({description: value})
@@ -148,7 +143,6 @@ class Stripe extends Component {
               orderID={orderID}
               handleDescription={this.handleDescription}
               message={message}
-              handleStripeCard={this.handleStripeCard}
               loading={loading}
               saved={addressSaved}
               shippingTypes={shippingTypes}
