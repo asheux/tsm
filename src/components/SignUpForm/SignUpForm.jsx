@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Footer from '../Footer';
 import FormInput from '../FormInput';
 
 const Button = () => {
@@ -70,7 +69,6 @@ const SignUpForm = ({...props}) => {
             {Button()}
           </form>
         </div>
-        <Footer />
       </div>
   )
 }

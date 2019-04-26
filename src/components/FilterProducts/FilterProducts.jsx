@@ -1,4 +1,6 @@
 import React from 'react';
+import { Pagination } from 'antd';
+import 'antd/dist/antd.css';
 import * as image_store from '../../utils/imageUrl';
 import DisplayCard from '../DisplayCard';
 
@@ -18,7 +20,14 @@ const mapData = (itemDetails, handleCardClick) =>
   );
 
 const FilterCategory = ({...props}) => {
-  const { itemDetails, handleCardClick } = props;
+  const {
+    itemDetails,
+    handlePageChange,
+    total,
+    pageSizeOptions,
+    handleShowSizeChange,
+    handleCardClick } = props;
+
   return (
     <React.Fragment>
       <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -36,7 +45,20 @@ const FilterCategory = ({...props}) => {
   						{mapData(itemDetails, handleCardClick)}
   					</div>
   				</div>
-  				<a href="/" className=" menu_btn btn btn-danger">view more</a><br /><br />
+  				<div className="text-center">
+            <Pagination
+              showSizeChanger
+              showQuickJumper
+              defaultCurrent={1}
+              defaultPageSize={20}
+              pageSizeOptions={pageSizeOptions}
+              onShowSizeChange={handleShowSizeChange}
+              onChange={handlePageChange}
+              total={total}
+            />
+          </div>
+          <br />
+          <br />
   			</div>
       </main>
     </React.Fragment>

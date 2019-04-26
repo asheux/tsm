@@ -14,7 +14,8 @@ class ShoppingCart extends Component {
     this.state = {
       shoppingCart: []
     };
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   };
 
   /**
@@ -94,6 +95,16 @@ class ShoppingCart extends Component {
     }
   }
 
+  handleRemove = (e) => {
+    const { removecartitemActions } = this.props;
+    const itemId = e.target.getAttribute('data-key');
+    if (itemId) {
+      removecartitemActions(itemId).then(data => {
+        this.updateShoppingCart();
+      });
+    }
+  }
+
   render() {
     const { shoppingCart } = this.state;
     const totalItemInCart = this.computeTotal(shoppingCart);
@@ -107,6 +118,7 @@ class ShoppingCart extends Component {
         />
         <ShoppingCartTable
           totalItemInCart={totalItemInCart}
+          handleRemove={this.handleRemove}
           handleChange={this.handleChange}
           handleDelete={this.handleDelete}
           {...this.props}

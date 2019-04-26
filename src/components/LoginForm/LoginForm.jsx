@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Footer from '../Footer';
 import FormInput from '../FormInput';
 
 const Button = (handleSubmit) => {
@@ -45,7 +44,7 @@ const LoginForm = ({...props}) => {
       <div className="login">
         <div className="container auth-user">
           <div className="row logo-row">
-            <h1><i className="fa fa-lock" aria-hidden="true"></i> Sign In</h1>
+            <h1> Sign In</h1>
           </div><br /><br />
           <form onSubmit={handleSubmit}>
             <FormInput
@@ -71,7 +70,6 @@ const LoginForm = ({...props}) => {
             {Button()}
           </form>
         </div>
-        <Footer />
       </div>
   )
 }

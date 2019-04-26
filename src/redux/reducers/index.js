@@ -26,6 +26,7 @@ import ordersReducer from './postOrder';
 import getOrderReducer from './getOrder';
 import stripeReducer from './stripe';
 import getmyordersReducer from './myorders';
+import removecartitemReducer from './removeCartItem';
 
 const rootReducer = combineReducers({
   departments: departmentsReducer,
@@ -54,7 +55,8 @@ const rootReducer = combineReducers({
   orders: ordersReducer,
   getOrder: getOrderReducer,
   stripe: stripeReducer,
-  myorders: getmyordersReducer
+  myorders: getmyordersReducer,
+  removeCartItem: removecartitemReducer
 });
 
 export default rootReducer;

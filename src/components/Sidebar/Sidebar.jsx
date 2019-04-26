@@ -2,7 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({...props}) => {
-  const { menu, handleSidebarClick } = props;
+  const {
+    menu,
+    sidebarActive,
+    handleSidebarClick } = props;
+  const itemStyle = {
+    color: '#DC143C',
+    borderBottom: '1px solid #DC143C'
+  };
+
   return (
     <nav className="col-md-2 d-none d-md-block bg-light sidebar">
       <div className="sidebar-sticky">
@@ -14,10 +22,10 @@ const Sidebar = ({...props}) => {
               title={item.description} key={item.category_id}>
               <Link
                 to={`/products/inCategory/${item.category_id}`}
+                style={sidebarActive === item.name ? itemStyle : {}}
                 data-key={item.category_id}
                 onClick={handleSidebarClick}
                 className="nav-link">
-                <span className="feather"></span>
                 {item.name}
               </Link>
             </li>

@@ -5,6 +5,7 @@
   "dependencies": {
     "@bugsnag/js": "^6.0.0",
     "@bugsnag/plugin-react": "^6.0.0",
+    "antd": "^3.16.5",
     "axios": "^0.18.0",
     "fast-deep-equal": "^2.0.1",
     "font-awesome": "^4.7.0",

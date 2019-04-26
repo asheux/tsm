@@ -416,7 +416,9 @@ ul.account-ul li {
 }
 
 .price span {
-  color: gold;
+  color: #DC143C;
+  padding-right: 0.2em;
+  padding-left: 1em;
 }
 .product-title, .rating, .product-description, .price, .vote, .sizes {
   margin-bottom: 15px;
@@ -561,11 +563,15 @@ ul.account-ul li {
 h1 {
    margin:auto;
 }
-.logo-row{
+.logo-row {
    height:90px;
    width:420px;
-   color: white;
-   background-color: #DC143C;
+   padding-top: 1em;
+   background-color: white;
+}
+
+.logo-row h1 {
+  color: #DC143C;
 }
 
 .auth-user {
@@ -603,7 +609,7 @@ h1 {
 
 .footer {
   width: 100%;
-  background-color: #E6E6E6;
+  background-color: #000000;
   text-align: center;
 }
 
@@ -805,4 +811,13 @@ h1 {
 
 .fa-cc-stripe {
    font-size: 80px
+ }
+
+ .remove {
+   text-align: center;
+   color: #DC143C;
+ }
+
+ .cart-trash {
+   cursor: pointer;
  }

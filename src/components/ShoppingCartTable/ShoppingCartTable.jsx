@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import image from '../../static/images-shirt2.png';
 
 const ShoppingCartTable = ({...props}) => {
   const {
     handleChange,
     cartData,
+    handleRemove,
     handleDelete, totalItemInCart,
     shoppingCartTotal } = props;
   const shoppingCartData = cartData.data;
@@ -28,7 +28,12 @@ const ShoppingCartTable = ({...props}) => {
     				<tr>
     					<td data-th="Product">
     						<div className="row">
-    							<div className="col-sm-3 hidden-xs"><img src={image} alt="avatar" className="img-responsive"/></div>
+    							<div className="col-sm-3 hidden-xs remove">
+                    <i data-key={cartData.item_id}
+                      onClick={handleRemove}
+                      className="fas cart-trash fa-trash-alt">
+                    </i>
+                  </div>
     							<div className="col-sm-9">
     								<h4 className="nomargin">{cartData.name}</h4>
     								<p>{`Size: ${cartData.attributes.split(',')[0]}`}</p>

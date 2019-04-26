@@ -17,9 +17,14 @@ class Products extends Component {
       products: [],
       departments: [],
       categories: [],
-      activeItem: 'All products'
+      activeItem: 'All products',
+      sidebarActive: '',
+      total: '',
+      pageTotal: 1
     };
     this.handleDepartmentClick = this.handleDepartmentClick.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleShowSizeChange = this.handleShowSizeChange.bind(this);
   };
 
   /**
@@ -31,6 +36,7 @@ class Products extends Component {
       productsActions,
       departmentsActions,
       generateActions,
+      metaData,
       categoriesActions } = this.props;
     generateActions();
     departmentsActions().then(data => {
@@ -46,10 +52,121 @@ class Products extends Component {
     productsActions().then(data => {
       if(data.data) {
         this.setState({
-          products: data.data.rows
+          products: data.data.data.rows,
+          total: data.data.meta.total,
+          pageTotal: Math.ceil(
+            data.data.meta.total / metaData.pageSize
+          )
         });
       }
-    })
+    });
+  }
+
+  mapCategories = (sidebarActive, total, pageSize) => {
+    const categoryId = localStorage.getItem('categoryId');
+    const { productsByCategoryActions, productsData } = this.props;
+    const { pageTotal } = this.state;
+    console.log("HERE WE ARE", productsData);
+
+    switch(sidebarActive) {
+      case 'French':
+      case 'Italian':
+      case 'Irish':
+      case 'Animal':
+      case 'Flower':
+      case 'Christmas':
+      case "Valentine's":
+        productsByCategoryActions(categoryId)
+          .then(data => {
+            this.setState({
+              products: data.data.data.rows,
+              pageTotal: (total && pageSize) ? Math.ceil(total / pageSize) : pageTotal
+            });
+          });
+        break;
+      default:
+        return '';
+    }
+  }
+
+  /**
+   * handles changes that happen on size of the page or the page limit
+   * and updates the relevant items the should be displayed
+   *  @param {*} event
+   */
+  handleShowSizeChange = (_, pageSize) => {
+    const {
+      $pageSize,
+      productsByDepartmentActions,
+      productsActions } = this.props;
+    const { total, activeItem, sidebarActive } = this.state;
+    const deparmentId = localStorage.getItem('deparmentId');
+
+    $pageSize(pageSize);
+    switch(activeItem) {
+      case 'All products':
+        productsActions().then(data => {
+          this.setState({
+            products: data.data.data.rows,
+            pageTotal: Math.ceil(total / pageSize)
+          });
+        });
+        this.mapCategories(sidebarActive, total, pageSize);
+        break;
+      case 'Regional':
+      case 'Nature':
+      case 'Seasonal':
+        productsByDepartmentActions(deparmentId)
+          .then(data => {
+            this.setState({
+              products: data.data.data.rows,
+              pageTotal: Math.ceil(total / pageSize)
+            });
+          });
+        this.mapCategories(sidebarActive, total, pageSize);
+        break;
+      default:
+        return '';
+    }
+  }
+
+  /**
+   * handles changes that happen on number of the page
+   * and updates the relevant items the should be displayed
+   *  @param {*} event
+   */
+  handlePageChange = (pageNumber) => {
+    const {
+      $page,
+      productsActions,
+      productsByDepartmentActions } = this.props;
+    const { pageTotal, activeItem, sidebarActive } = this.state;
+    const deparmentId = localStorage.getItem('deparmentId');
+
+    $page(pageNumber, pageTotal);
+    switch(activeItem) {
+      case 'All products':
+        productsActions().then(data => {
+          this.setState({
+            products: data.data.data.rows
+          });
+        });
+        this.mapCategories(sidebarActive);
+        break;
+      case 'Regional':
+      case 'Nature':
+      case 'Seasonal':
+        productsByDepartmentActions(deparmentId)
+          .then(data => {
+            this.setState({
+              products: data.data.data.rows
+            });
+        });
+        this.mapCategories(sidebarActive);
+        break;
+      default:
+        return '';
+    }
   }
 
   /**
@@ -85,6 +202,24 @@ class Products extends Component {
     return displayProductList;
   }
 
+  switchTotal = () => {
+    const { activeItem, total } = this.state;
+    const { productsData } = this.props;
+
+    switch(activeItem) {
+      case activeItem:
+        return productsData.data.count;
+        break;
+      case 'Regional':
+      case 'Nature':
+      case 'Seasonal':
+        return total;
+        break;
+      default:
+        return total;
+    }
+  }
+
   /**
    * Listens to an onClick event on a data-key attributes
    * in the current document
@@ -95,10 +230,12 @@ class Products extends Component {
   handleClick = (e) => {
     const value = e.target.innerHTML;
     const { productsData, categoriesData, departmentData  } = this.props;
+
     this.setState({
       products: productsData.data.rows,
       departments: departmentData.data,
       categories: categoriesData.data.rows,
+      total: this.switchTotal(),
       activeItem: value
     });
   }
@@ -112,10 +249,20 @@ class Products extends Component {
    */
   handleCategoryClick = (e) => {
     const categoryId = e.target.getAttribute('data-key');
-    const { productsByCategoryActions } = this.props;
+    const value = e.target.innerHTML;
+    localStorage.setItem('categoryId', categoryId);
+    const { productsByCategoryActions, metaCategories } = this.props;
+
     productsByCategoryActions(categoryId).then(data => {
       if(data.data) {
-        this.setState({products: data.data.rows});
+        this.setState({
+          products: data.data.data.rows,
+          total: data.data.meta.total,
+          sidebarActive: value,
+          pageTotal: Math.ceil(
+            data.data.meta.total / metaCategories.pageSize
+          )
+        });
       }
     })
   }
@@ -130,12 +277,22 @@ class Products extends Component {
   handleDepartmentClick = (e) => {
       const value = e.target.innerHTML;
       const departmentId = e.target.getAttribute('data-key');
-      const { productsByDepartmentActions, categoriesByDepartmentActions } = this.props;
+      localStorage.setItem('deparmentId', departmentId);
+      const {
+        productsByDepartmentActions,
+        metaDepartments,
+        categoriesByDepartmentActions
+      } = this.props;
+
       productsByDepartmentActions(departmentId).then(data => {
         if(data.data) {
           this.setState({
-            products: data.data.rows,
-            activeItem: value
+            products: data.data.data.rows,
+            activeItem: value,
+            total: data.data.meta.total,
+            pageTotal: Math.ceil(
+              data.data.meta.total / metaDepartments.pageSize
+            )
           });
         }
       });
@@ -146,9 +303,26 @@ class Products extends Component {
       });
   };
 
+  isLessThanTotal = (element, index, array) => {
+    const { total } = this.state;
+    return element <= (total + 10);
+  }
+
   render() {
-    const { products, activeItem, categories, departments } = this.state
-    const { categoriesData, departmentData } = this.props;
+    const {
+      products,
+      activeItem,
+      categories,
+      total,
+      sidebarActive,
+      departments } = this.state
+    const {
+      categoriesData,
+      metaData,
+      departmentData } = this.props;
+
+    const options = metaData.pageSizeOptions.filter(this.isLessThanTotal);
+
     return (
       <React.Fragment>
         <Navbar
@@ -162,6 +336,7 @@ class Products extends Component {
           <div className="row">
             <Sidebar
               {...this.props}
+              sidebarActive={sidebarActive}
               menu={!categories
                 ?
                 (
@@ -176,6 +351,10 @@ class Products extends Component {
               {...this.props}
               itemDetails={this.mapDisplayCardDetails(products)}
               handleCardClick={this.handleCardClick}
+              handlePageChange={this.handlePageChange}
+              handleShowSizeChange={this.handleShowSizeChange}
+              pageSizeOptions={options}
+              total={parseInt(total, 10)}
             />
           </div>
         </div>

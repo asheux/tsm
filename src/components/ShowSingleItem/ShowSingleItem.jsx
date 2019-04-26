@@ -99,8 +99,17 @@ const ShowSingleItem = ({...props}) => {
     							</div>
                   <span className="review-no">{reviews.length} reviews</span>
     						</div>
-                <div>
-                  <h6 className="price">current price: <span>&euro; {productDetails.price}</span></h6>
+                <div className="row">
+                  <p className="price"><span>&euro; {productDetails.price}</span></p>
+                  {productDetails.discounted_price < productDetails.price
+                    ? ''
+                    :
+                    <p className="price">
+                      <span>
+                        <small><strike>&euro; {productDetails.discounted_price}</strike></small>
+                      </span>
+                    </p>
+                  }
                 </div>
     						<p className="product-description">{productDetails.description}</p>
     						<h6 className="colors">Color</h6>

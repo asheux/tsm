@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as types from '../../constants/productsByDepartmentTypes';
+import serializeQuery from '../../../utils/serialize';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -17,11 +18,22 @@ export const fetchProductsByDepartmentRequest = () => ({
   type: types.FETCH_PRODUCTS_BY_DEPARTMENT_REQUEST
 });
 
-const productsByDepartmentActions = (departmentId) => dispatch => {
+const productsByDepartmentActions = (departmentId) => (dispatch, getState) => {
+  const { meta } = getState().products;
+  const query = {page: meta.page, limit: meta.pageSize};
   dispatch(fetchProductsByDepartmentRequest());
-  const url = `${baseUrl}/products/inDepartment/${departmentId}`;
+  const url =
+    `${baseUrl}/products/inDepartment/${departmentId}?${serializeQuery(query)}`;
   return axios(url)
-    .then(response => dispatch(fetchProductsByDepartmentSuccess(response.data)))
+    .then(response => dispatch(fetchProductsByDepartmentSuccess({
+        data: response.data,
+        meta: {
+          page: 1,
+          pageSize: 20,
+          total: response.data.count,
+        }
+      }
+    )))
     .catch(error => dispatch(fetchProductsByDepartmentFailure(error)))
 }
 

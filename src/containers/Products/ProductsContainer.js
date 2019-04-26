@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Products from './Products';
 import productsActions from '../../redux/actionCreators/products';
+import { $page, $pageSize } from '../../redux/actionCreators/paginate';
 import productsByCategoryActions from '../../redux/actionCreators/productsByCategory';
 import productsByDepartmentActions from '../../redux/actionCreators/productsByDepartment';
 import generateActions from '../../redux/actionCreators/generateUniqueCartId';
@@ -23,9 +24,12 @@ const mapStateToProps = ({
   generate,
   categoriesDepartment
 }) => ({
-  productsData: products,
-  inCategory: productsByCategory,
-  inDepartment: productsDepartment,
+  productsData: products.data,
+  metaData: products.meta,
+  metaDepartments: productsDepartment.meta,
+  metaCategories: productsByCategory.meta,
+  inCategory: productsByCategory.data,
+  inDepartment: productsDepartment.data,
   categoriesInDepartment: categoriesDepartment,
   departmentData: departments,
   categoriesData: categories,
@@ -36,6 +40,8 @@ export default connect(
   mapStateToProps,
   {
     productsActions,
+    $page,
+    $pageSize,
     productsByCategoryActions,
     productsByDepartmentActions,
     categoriesByDepartmentActions,

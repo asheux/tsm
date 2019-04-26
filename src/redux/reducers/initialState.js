@@ -1,3 +1,6 @@
+export const INDEX_PAGE_SIZE_DEFAULT = 20;
+export const INDEX_PAGE_SIZE_OPTIONS = ['5', '10', '19', '30', '50', '100'];
+
 export default {
   departments: {
     data: [],
@@ -12,17 +15,13 @@ export default {
   products: {
     data: [],
     errors: null,
-    loading: false
-  },
-  productsByCategory: {
-    data: [],
-    errors: null,
-    loading: false
-  },
-  productsByDepartment: {
-    data: [],
-    errors: null,
-    loading: false
+    loading: false,
+    meta: {
+      page: 1,
+      pageSize: INDEX_PAGE_SIZE_DEFAULT,
+      pageSizeOptions: INDEX_PAGE_SIZE_OPTIONS,
+      total: 0
+    }
   },
   categoriesByDepartment: {
     data: [],
@@ -128,5 +127,10 @@ export default {
     data: [],
     errors: null,
     loading: false
-  }
+  },
+  removeItem: {
+    data: {},
+    errors: null,
+    loading: false
+  },
 };
