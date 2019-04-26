@@ -27,6 +27,7 @@ import getOrderReducer from './getOrder';
 import stripeReducer from './stripe';
 import getmyordersReducer from './myorders';
 import removecartitemReducer from './removeCartItem';
+import searchReducer from './searchengine';
 
 const rootReducer = combineReducers({
   departments: departmentsReducer,
@@ -56,7 +57,8 @@ const rootReducer = combineReducers({
   getOrder: getOrderReducer,
   stripe: stripeReducer,
   myorders: getmyordersReducer,
-  removeCartItem: removecartitemReducer
+  removeCartItem: removecartitemReducer,
+  searchResults: searchReducer
 });
 
 export default rootReducer;

@@ -26,7 +26,7 @@ class StripeForm extends Component {
         // eslint-disable-next-line
         Object.keys(data[i]).forEach(item => {
           if(item === 'subtotal') {
-            total += data[i][item];
+            total += parseInt(data[i][item], 10);
           }
         });
       }
@@ -68,7 +68,7 @@ class StripeForm extends Component {
                 2000
               );
             }
-          })
+          });
         });
       } else {
         this.setState({payError: 'Please place an order and try again!'})

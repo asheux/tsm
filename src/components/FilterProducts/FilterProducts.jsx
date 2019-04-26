@@ -46,6 +46,10 @@ const FilterCategory = ({...props}) => {
   					</div>
   				</div>
   				<div className="text-center">
+            {itemDetails.length === 0
+              ?
+            'No product found'
+              :
             <Pagination
               showSizeChanger
               showQuickJumper
@@ -56,6 +60,7 @@ const FilterCategory = ({...props}) => {
               onChange={handlePageChange}
               total={total}
             />
+            }
           </div>
           <br />
           <br />

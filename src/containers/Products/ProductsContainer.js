@@ -8,6 +8,7 @@ import generateActions from '../../redux/actionCreators/generateUniqueCartId';
 import categoriesByDepartmentActions from '../../redux/actionCreators/categoriesByDepartment';
 import departmentsActions from '../../redux/actionCreators/departments';
 import categoriesActions from '../../redux/actionCreators/categories';
+import searchActions from '../../redux/actionCreators/searchengine';
 
 /**
  * map state to props or updates the
@@ -22,6 +23,7 @@ const mapStateToProps = ({
   departments,
   categories,
   generate,
+  searchResults,
   categoriesDepartment
 }) => ({
   productsData: products.data,
@@ -33,7 +35,9 @@ const mapStateToProps = ({
   categoriesInDepartment: categoriesDepartment,
   departmentData: departments,
   categoriesData: categories,
-  generateduniqueId: generate
+  generateduniqueId: generate,
+  searchData: searchResults.data,
+  metaSearch: searchResults.meta
 });
 
 export default connect(
@@ -47,6 +51,7 @@ export default connect(
     categoriesByDepartmentActions,
     departmentsActions,
     categoriesActions,
-    generateActions
+    generateActions,
+    searchActions
   }
 )(Products);

@@ -25,6 +25,7 @@ class Products extends Component {
     this.handleDepartmentClick = this.handleDepartmentClick.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleShowSizeChange = this.handleShowSizeChange.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   };
 
   /**
@@ -64,9 +65,8 @@ class Products extends Component {
 
   mapCategories = (sidebarActive, total, pageSize) => {
     const categoryId = localStorage.getItem('categoryId');
-    const { productsByCategoryActions, productsData } = this.props;
+    const { productsByCategoryActions } = this.props;
     const { pageTotal } = this.state;
-    console.log("HERE WE ARE", productsData);
 
     switch(sidebarActive) {
       case 'French':
@@ -98,11 +98,13 @@ class Products extends Component {
     const {
       $pageSize,
       productsByDepartmentActions,
-      productsActions } = this.props;
+      productsActions,
+      searchActions
+    } = this.props;
     const { total, activeItem, sidebarActive } = this.state;
     const deparmentId = localStorage.getItem('deparmentId');
-
     $pageSize(pageSize);
+
     switch(activeItem) {
       case 'All products':
         productsActions().then(data => {
@@ -139,11 +141,13 @@ class Products extends Component {
     const {
       $page,
       productsActions,
-      productsByDepartmentActions } = this.props;
+      productsByDepartmentActions,
+      searchActions
+    } = this.props;
     const { pageTotal, activeItem, sidebarActive } = this.state;
     const deparmentId = localStorage.getItem('deparmentId');
-
     $page(pageNumber, pageTotal);
+
     switch(activeItem) {
       case 'All products':
         productsActions().then(data => {
@@ -218,6 +222,11 @@ class Products extends Component {
       default:
         return total;
     }
+  }
+
+  isLessThanTotal = (element, index, array) => {
+    const { total } = this.state;
+    return element <= (total + 10);
   }
 
   /**
@@ -303,9 +312,23 @@ class Products extends Component {
       });
   };
 
-  isLessThanTotal = (element, index, array) => {
-    const { total } = this.state;
-    return element <= (total + 10);
+  /**
+   * Listens to events and changes in form inputs
+   *  @param {*} event
+   */
+  handleSearchChange = (e) => {
+    const { value } = e.target;
+    localStorage.setItem('searchQuery', value);
+    const { searchActions, metaSearch } = this.props;
+    searchActions(value).then(data => {
+      this.setState({
+        products: data.data.data.rows,
+        total: data.data.meta.total,
+        pageTotal: Math.ceil(
+          data.data.meta.total / (!metaSearch ? '' : metaSearch.pageSize)
+        )
+      });
+    });
   }
 
   render() {
@@ -331,6 +354,7 @@ class Products extends Component {
           menuItems={departments.length === 0 ? departmentData.data : departments}
           handleItemClick={this.handleDepartmentClick}
           activeItem={activeItem}
+          handleSearchChange={this.handleSearchChange}
         />
         <div className="container-fluid">
           <div className="row">

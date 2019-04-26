@@ -133,4 +133,9 @@ export default {
     errors: null,
     loading: false
   },
+  searchResults: {
+    data: [],
+    errors: null,
+    loading: false
+  }
 };

@@ -4,7 +4,13 @@ import Header from '../Header';
 
 const Navbar = ({...props}) => {
 
-  const { activeItem, handleItemClick, menuItems, handleClick } = props;
+  const {
+    activeItem,
+    handleItemClick,
+    menuItems,
+    handleSearchChange,
+    handleClick
+  } = props;
   const itemStyle = { color: '#DC143C'};
   return (
     <div className="">
@@ -45,7 +51,12 @@ const Navbar = ({...props}) => {
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ml-auto">
                         <div className="searchbar">
-                            <input className="search_input" type="text" name="" placeholder="Search..." />
+                            <input
+                              onChange={handleSearchChange}
+                              className="search_input"
+                              type="text" name=""
+                              placeholder="Search..."
+                            />
                             <i className="fas fa-search"></i>
                         </div>
                     </ul>
