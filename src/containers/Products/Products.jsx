@@ -81,13 +81,15 @@ class Products extends Component {
             this.setState({
               products: data.data.data.rows,
               pageTotal: (total && pageSize) ? Math.ceil(total / pageSize) : pageTotal
-            });
+            }, () => {this.scrollPage()});
           });
         break;
       default:
         return '';
     }
   }
+
+  scrollPage = () => window.scrollTo(0,0);
 
   /**
    * handles changes that happen on size of the page or the page limit
@@ -111,7 +113,7 @@ class Products extends Component {
           this.setState({
             products: data.data.data.rows,
             pageTotal: Math.ceil(total / pageSize)
-          });
+          }, () => {this.scrollPage()});
         });
         this.mapCategories(sidebarActive, total, pageSize);
         break;
@@ -123,7 +125,7 @@ class Products extends Component {
             this.setState({
               products: data.data.data.rows,
               pageTotal: Math.ceil(total / pageSize)
-            });
+            }, () => {this.scrollPage()});
           });
         this.mapCategories(sidebarActive, total, pageSize);
         break;
@@ -153,7 +155,7 @@ class Products extends Component {
         productsActions().then(data => {
           this.setState({
             products: data.data.data.rows
-          });
+          }, () => {this.scrollPage()});
         });
         this.mapCategories(sidebarActive);
         break;
@@ -164,7 +166,7 @@ class Products extends Component {
           .then(data => {
             this.setState({
               products: data.data.data.rows
-            });
+            }, () => {this.scrollPage()});
         });
         this.mapCategories(sidebarActive);
         break;

@@ -17,10 +17,8 @@ const Button = (handleSubmit) => {
       <button type="submit" onClick={handleSubmit} className="auth-btn btn btn-default">
         <span className="glyphicon glyphicon-off"></span> Sign In
       </button>
-      <span>Or </span>
-      <button type="submit" className="auth-btn btn btn-info">
-        <i className="fab fa-facebook-square"></i> Login with Facebook
-      </button><br /><br />
+      <br />
+      <br />
       <center>
         <div style={divStyle}></div>
       </center><br />
