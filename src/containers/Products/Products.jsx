@@ -100,8 +100,7 @@ class Products extends Component {
     const {
       $pageSize,
       productsByDepartmentActions,
-      productsActions,
-      searchActions
+      productsActions
     } = this.props;
     const { total, activeItem, sidebarActive } = this.state;
     const deparmentId = localStorage.getItem('deparmentId');
@@ -143,8 +142,7 @@ class Products extends Component {
     const {
       $page,
       productsActions,
-      productsByDepartmentActions,
-      searchActions
+      productsByDepartmentActions
     } = this.props;
     const { pageTotal, activeItem, sidebarActive } = this.state;
     const deparmentId = localStorage.getItem('deparmentId');
