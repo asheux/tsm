@@ -127,6 +127,7 @@ class Stripe extends Component {
       fetchedCustomer,
       fetchedTaxes,
       postedOrder,
+      stripePayment,
       fetchedRegions } = this.props;
     const { loading } = postedOrder;
     return (
@@ -153,6 +154,7 @@ class Stripe extends Component {
               handleShippingType={this.handleShippingType}
               fetchedCustomer={fetchedCustomer.data}
               handleChange={this.handleChange}
+              stripeLoading={stripePayment.loading}
               handleSubmit={this.handleSubmit}
             />
           </Elements>

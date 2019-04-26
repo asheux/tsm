@@ -28,8 +28,11 @@ const DisplayCard = ({...props}) => {
         <div data-key={mykey} className="card-body">
           <h4 data-key={mykey}><b data-key={mykey}>{title}</b></h4>
           <small data-key={mykey}>{description}</small>
-          {discounted < price ? '' : <p data-key={mykey} className="price"><small><strike>&euro; {discounted}</strike></small></p>}
-          <p data-key={mykey} className="price">&euro; {price}</p>
+          {discounted === '0.00' ? <p data-key={mykey} className="price">&euro; {price}</p> :
+          <p data-key={mykey} className="price"><small>&euro; {discounted}</small>
+          <p data-key={mykey} className="price"><strike>&euro; {price}</strike></p>
+          </p>
+          }
         </div>
       </div>
     </div>

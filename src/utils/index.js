@@ -17,6 +17,16 @@ export const userDetailsFromToken = (token) => {
   return info;
 }
 
+export const setUsername = (name) => {
+  const username = localStorage.setItem('user_name', name)
+  return username;
+}
+
+export const getUsername = () => {
+  const username= localStorage.getItem('user_name')
+  return username;
+}
+
 export const isAuthenticated = () => !!getToken();
 
 export const logout = () => {

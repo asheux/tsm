@@ -80,6 +80,7 @@ class StripeForm extends Component {
     const {
       handleSubmit,
       loading,
+      stripeLoading,
       handleDescription
     } = this.props;
     const { payError, stripeSuccess } = this.state;
@@ -161,7 +162,7 @@ class StripeForm extends Component {
                   name="submit"
                   type="submit"
                   className="add-to-cart btn payStripe btn-default">
-                  Pay
+                  {stripeLoading ? 'Sending payment' : 'Pay'}
                 </button>
               </div>
             </div>

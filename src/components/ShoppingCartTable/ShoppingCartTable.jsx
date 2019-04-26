@@ -13,7 +13,7 @@ const ShoppingCartTable = ({...props}) => {
   return (
       <div className="container">
         <h4 className="cart-header">{`${totalItemInCart} item(s) in your cart`}</h4>
-        {shoppingCartData.length !== 0 ?
+        {totalItemInCart !== 0 ?
         <table id="cart" className="table table-hover table-condensed">
          <thead>
           <tr>
@@ -23,7 +23,7 @@ const ShoppingCartTable = ({...props}) => {
   					<th className="text-center subt">Subtotal</th>
   				</tr>
   			</thead>
-  			{shoppingCartData.map(cartData =>
+  			{shoppingCartData[0].map(cartData =>
           <tbody key={cartData.item_id}>
     				<tr>
     					<td data-th="Product">

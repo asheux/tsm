@@ -39,7 +39,7 @@ class ShoppingCart extends Component {
     if (cartId) {
       shoppingcartActions(cartId).then(data => {
         if (data.data) {
-          this.setState({shoppingCart: data.data})
+          this.setState({shoppingCart: data.data[0]})
         }
       });
       totalAmountActions(cartId);

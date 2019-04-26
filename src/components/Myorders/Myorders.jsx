@@ -3,6 +3,7 @@ import React from 'react';
 const Myorders = ({...props}) => {
   const { myordersdata } = props;
   const { data } = myordersdata;
+  const status = {'0': 'Not Paid', '2': 'Paid'}
 
   return (
     <div className="container">
@@ -23,7 +24,7 @@ const Myorders = ({...props}) => {
             <td data-th="order_id">{order.order_id}</td>
             <td data-th="shipped_on">{order.shipped_on}</td>
             <td data-th="name">{order.name}</td>
-            <td data-th="status">{order.status}</td>
+            <td data-th="status">{status[order.status]}</td>
             <td data-th="Subtotal">{order.total_amount}</td>
           </tr>
         </tbody>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CustomerProfile from '../../components/CustomerProfile';
 import Navbar from '../../components/Navbar';
+import * as auth from '../../utils';
 
 class Customer extends Component {
   /**
@@ -69,6 +70,7 @@ class Customer extends Component {
       customerActions(userData).then(data => {
         if (data.type === "UPDATE_CUSTOMER_SUCCESS") {
           this.setState({message: 'Profile updated successfully.'});
+          auth.setUsername(data.data.name);
           this.fetchCustomerData();
         };
       })

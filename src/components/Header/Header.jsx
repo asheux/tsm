@@ -26,11 +26,8 @@ const computeTotal = (data) => {
 }
 
 const Header = ({...props}) => {
-  const token = auth.getToken();
-  let userInfo = '';
-  if (token) {
-    userInfo = auth.userDetailsFromToken(token);
-  }
+  const username = auth.getUsername();
+
   const { shoppingCart } = props;
   const total = computeTotal(shoppingCart)
   const generatedId = accessCart.getGeneratedCartId();
@@ -45,7 +42,7 @@ const Header = ({...props}) => {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false">Hi!
-              <Link to="!#" className="auth">{userInfo.name}</Link>
+              <Link to="!#" className="auth">{username}</Link>
             </li>
             <span className="caret"></span>
             <div className="dropdown-menu">

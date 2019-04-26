@@ -51,6 +51,8 @@ class SignUp extends Component {
     signupActions(payload).then(data => {
       if(!data.errors && data.data) {
         const token = data.data.accessToken;
+        const username = data.data.customer.name
+        auth.setUsername(username);
         auth.setToken(token);
         history.push('/');
       }
