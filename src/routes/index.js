@@ -30,7 +30,7 @@ export const AppRoutes = () => (
         <Route path="/shoppingcart/:cartId" component={ShoppingCart} exact />
         <Route path="/customer" component={Authorization(Customer)} exact />
         <Route path="/stripe/charge" component={Authorization(Stripe)} exact />
-        <Route path="/myorders" component={MyOrders} exact />
+        <Route path="/myorders" component={Authorization(MyOrders)} exact />
         <Route path="/orders/:order_id" component={SingleOrder} exact />
       </Switch>
     </React.Fragment>
