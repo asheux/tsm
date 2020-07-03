@@ -22,10 +22,6 @@ class Products extends Component {
             total: "",
             pageTotal: 1
         };
-        this.handleDepartmentClick = this.handleDepartmentClick.bind(this);
-        this.handlePageChange = this.handlePageChange.bind(this);
-        this.handleShowSizeChange = this.handleShowSizeChange.bind(this);
-        this.handleSearchChange = this.handleSearchChange.bind(this);
     }
 
     /**
