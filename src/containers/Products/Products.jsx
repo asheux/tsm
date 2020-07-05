@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import FilterProducts from "../../components/FilterProducts";
-import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 // import * as accessCart from '../../utils/cart';
 import Footer from "../../components/Footer";
+import ThemeChanger from "../../components/Context/ThemeChanger";
+import { ThemeContext, themes } from "../../components/Context/theme-context";
 
 class Products extends Component {
     /**
@@ -13,6 +14,13 @@ class Products extends Component {
      */
     constructor(props) {
         super(props);
+        this.toggleTheme = () => {
+            this.setState(state => ({
+                theme: state.theme === themes.dark ? themes.light : themes.dark,
+                btheme:
+                    state.btheme === themes.light ? themes.dark : themes.light
+            }));
+        };
         this.state = {
             products: [],
             departments: [],
@@ -20,7 +28,10 @@ class Products extends Component {
             activeItem: "All products",
             sidebarActive: "",
             total: "",
-            pageTotal: 1
+            pageTotal: 1,
+            theme: themes.dark,
+            btheme: themes.light,
+            toggleTheme: this.toggleTheme
         };
     }
 
@@ -60,10 +71,24 @@ class Products extends Component {
         });
     }
 
+    setProductState = (data, ptotal) => {
+        this.setState(
+            {
+                products: data,
+                pageTotal: ptotal
+            },
+            () => {
+                this.scrollPage();
+            }
+        );
+    };
+
     mapCategories = (sidebarActive, total, pageSize) => {
         const categoryId = localStorage.getItem("categoryId");
         const { productsByCategoryActions } = this.props;
         const { pageTotal } = this.state;
+        const ptotal =
+            total && pageSize ? Math.ceil(total / pageSize) : pageTotal;
 
         switch (sidebarActive) {
             case "French":
@@ -74,18 +99,8 @@ class Products extends Component {
             case "Christmas":
             case "Valentine's":
                 productsByCategoryActions(categoryId).then(data => {
-                    this.setState(
-                        {
-                            products: data.data.data.rows,
-                            pageTotal:
-                                total && pageSize
-                                    ? Math.ceil(total / pageSize)
-                                    : pageTotal
-                        },
-                        () => {
-                            this.scrollPage();
-                        }
-                    );
+                    const d = data.data.data.rows;
+                    this.setProductState(d, ptotal);
                 });
                 break;
             default:
@@ -110,18 +125,13 @@ class Products extends Component {
         const deparmentId = localStorage.getItem("deparmentId");
         $pageSize(pageSize);
 
+        const ptotal = Math.ceil(total / pageSize);
+
         switch (activeItem) {
             case "All products":
                 productsActions().then(data => {
-                    this.setState(
-                        {
-                            products: data.data.data.rows,
-                            pageTotal: Math.ceil(total / pageSize)
-                        },
-                        () => {
-                            this.scrollPage();
-                        }
-                    );
+                    const d = data.data.data.rows;
+                    this.setProductState(d, ptotal);
                 });
                 this.mapCategories(sidebarActive, total, pageSize);
                 break;
@@ -129,15 +139,8 @@ class Products extends Component {
             case "Nature":
             case "Seasonal":
                 productsByDepartmentActions(deparmentId).then(data => {
-                    this.setState(
-                        {
-                            products: data.data.data.rows,
-                            pageTotal: Math.ceil(total / pageSize)
-                        },
-                        () => {
-                            this.scrollPage();
-                        }
-                    );
+                    const d = data.data.data.rows;
+                    this.setProductState(d, ptotal);
                 });
                 this.mapCategories(sidebarActive, total, pageSize);
                 break;
@@ -164,14 +167,8 @@ class Products extends Component {
         switch (activeItem) {
             case "All products":
                 productsActions().then(data => {
-                    this.setState(
-                        {
-                            products: data.data.data.rows
-                        },
-                        () => {
-                            this.scrollPage();
-                        }
-                    );
+                    const d = data.data.data.rows;
+                    this.setProductState(d, 1);
                 });
                 this.mapCategories(sidebarActive);
                 break;
@@ -179,14 +176,8 @@ class Products extends Component {
             case "Nature":
             case "Seasonal":
                 productsByDepartmentActions(deparmentId).then(data => {
-                    this.setState(
-                        {
-                            products: data.data.data.rows
-                        },
-                        () => {
-                            this.scrollPage();
-                        }
-                    );
+                    const d = data.data.data.rows;
+                    this.setProductState(d, 1);
                 });
                 this.mapCategories(sidebarActive);
                 break;
@@ -208,11 +199,11 @@ class Products extends Component {
     };
 
     /**
-     * maps through an array and formats the data
-     * then returns the formated data
+     *  parse the data
      *  @param {*} array
+                    
      */
-    mapDisplayCardDetails = productsArray => {
+    parseCardDetails = productsArray => {
         const displayProductList = [];
         productsArray.map(product => {
             const detailsList = {
@@ -381,21 +372,22 @@ class Products extends Component {
                 />
                 <div className="container-fluid">
                     <div className="row">
-                        <Sidebar
-                            {...this.props}
-                            sidebarActive={sidebarActive}
-                            menu={
-                                !categories
-                                    ? !categoriesData.data.rows
-                                        ? []
-                                        : categoriesData.data.rows
-                                    : categories
-                            }
-                            handleSidebarClick={this.handleCategoryClick}
-                        />
+                        <ThemeContext.Provider value={this.state}>
+                            <ThemeChanger
+                                sidebarActive={sidebarActive}
+                                menu={
+                                    !categories
+                                        ? !categoriesData.data.rows
+                                            ? []
+                                            : categoriesData.data.rows
+                                        : categories
+                                }
+                                handleSidebarClick={this.handleCategoryClick}
+                            />
+                        </ThemeContext.Provider>
                         <FilterProducts
                             {...this.props}
-                            itemDetails={this.mapDisplayCardDetails(products)}
+                            itemDetails={this.parseCardDetails(products)}
                             handleCardClick={this.handleCardClick}
                             handlePageChange={this.handlePageChange}
                             handleShowSizeChange={this.handleShowSizeChange}

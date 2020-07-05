@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import ShoppingCartTable from '../../components/ShoppingCartTable';
-import Navbar from '../../components/Navbar';
-import * as accessCart from '../../utils/cart';
+import React, { Component } from "react";
+import ShoppingCartTable from "../../components/ShoppingCartTable";
+import Navbar from "../../components/Navbar";
+import * as accessCart from "../../utils/cart";
 
 class ShoppingCart extends Component {
     /**
@@ -14,9 +14,7 @@ class ShoppingCart extends Component {
         this.state = {
             shoppingCart: []
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleRemove = this.handleRemove.bind(this);
-    };
+    }
 
     /**
      * Ensures that the component that updates the cart in mounted
@@ -24,67 +22,64 @@ class ShoppingCart extends Component {
      */
     componentDidMount() {
         this.updateShoppingCart();
-    };
+    }
 
     /**
      * Ensures that the changes are made to the component
      * Does real time update of the cart
      */
     updateShoppingCart = () => {
-        const {
-            shoppingcartActions,
-            totalAmountActions
-        } = this.props;
+        const { shoppingcartActions, totalAmountActions } = this.props;
         const cartId = accessCart.getGeneratedCartId();
         if (cartId) {
             shoppingcartActions(cartId).then(data => {
                 if (data.data) {
-                    this.setState({shoppingCart: data.data})
+                    this.setState({ shoppingCart: data.data });
                 }
             });
             totalAmountActions(cartId);
         }
-    }
+    };
 
     /**
      * This algorithm computes the item in the cart
      *  @param {*} array
      */
-    computeTotal = (data) => {
+    computeTotal = data => {
         let total = 0;
-        for (let i = 0; i < data.length; i+=1) {
+        for (let i = 0; i < data.length; i += 1) {
             // eslint-disable-next-line
             Object.keys(data[i]).forEach(item => {
-                if(item === 'quantity') {
+                if (item === "quantity") {
                     total += data[i][item];
                 }
             });
-        };
+        }
         return total;
-    }
+    };
 
     /**
      * Listens to events and changes in form inputs
      *  @param {*} event
      */
-    handleChange = (e) => {
+    handleChange = e => {
         const value = e.target.value;
-        const itemId = e.target.getAttribute('data-key');
+        const itemId = e.target.getAttribute("data-key");
         const payload = {
             quantity: value
         };
         const { updateItemActions } = this.props;
         updateItemActions(itemId, payload).then(data => {
             this.updateShoppingCart();
-        })
-    }
+        });
+    };
 
     /**
      * Listens to an onClick event
      * if event then an item is deleted from cart list
      *  @param {*} event
      */
-    handleDelete = (e) => {
+    handleDelete = e => {
         e.preventDefault();
         const { deleteItemActions } = this.props;
         const cartId = accessCart.getGeneratedCartId();
@@ -93,17 +88,17 @@ class ShoppingCart extends Component {
                 this.updateShoppingCart();
             });
         }
-    }
+    };
 
-    handleRemove = (e) => {
+    handleRemove = e => {
         const { removecartitemActions } = this.props;
-        const itemId = e.target.getAttribute('data-key');
+        const itemId = e.target.getAttribute("data-key");
         if (itemId) {
             removecartitemActions(itemId).then(data => {
                 this.updateShoppingCart();
             });
         }
-    }
+    };
 
     render() {
         const { shoppingCart } = this.state;
@@ -124,7 +119,7 @@ class ShoppingCart extends Component {
                     {...this.props}
                 />
             </React.Fragment>
-        )
+        );
     }
 }
 

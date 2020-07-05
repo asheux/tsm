@@ -1,12 +1,9 @@
-import { connect } from 'react-redux';
-import Order from './SingleOrder';
-import singleOrderActions from '../../redux/actionCreators/getOrder';
+import { connect } from "react-redux";
+import Order from "./SingleOrder";
+import singleOrderActions from "../../redux/actionCreators/getOrder";
 
-const mapStateToProps = ({getOrder}) => ({
-  singleorderdata: getOrder
+const mapStateToProps = ({ getOrder }) => ({
+    singleorderdata: getOrder
 });
 
-export default connect(
-  mapStateToProps,
-  {singleOrderActions}
-)(Order);
+export default connect(mapStateToProps, { singleOrderActions })(Order);

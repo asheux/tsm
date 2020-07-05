@@ -12,7 +12,7 @@ const ShoppingCartTable = ({...props}) => {
     console.log(totalItemInCart)
     const totalAmount = shoppingCartTotal.data;
     return (
-        <div className="container">
+        <div className="container shopping-cart-table">
             <h4 className="cart-header">{`${totalItemInCart} item(s) in your cart`}</h4>
             {totalItemInCart !== 0 ?
                     <table id="cart" className="table table-hover table-condensed">

@@ -1,9 +1,9 @@
-import { connect } from 'react-redux';
-import singleProductActions from '../../redux/actionCreators/singleProduct';
-import reviewsActions from '../../redux/actionCreators/reviews';
-import attributesActions from '../../redux/actionCreators/attributes';
-import addtocartActions from '../../redux/actionCreators/addtocart';
-import SingleItem from './SingleItem';
+import { connect } from "react-redux";
+import singleProductActions from "../../redux/actionCreators/singleProduct";
+import reviewsActions from "../../redux/actionCreators/reviews";
+import attributesActions from "../../redux/actionCreators/attributes";
+import addtocartActions from "../../redux/actionCreators/addtocart";
+import SingleItem from "./SingleItem";
 
 /**
  * map state to props or updates the
@@ -12,23 +12,20 @@ import SingleItem from './SingleItem';
  *  @param {*} object
  */
 const mapStateToProps = ({
-  singleProduct,
-  reviews,
-  attributes,
-  shoppingcart
+    singleProduct,
+    reviews,
+    attributes,
+    shoppingcart
 }) => ({
-  singleProduct: singleProduct,
-  productReviews: reviews,
-  productAttributes: attributes,
-  inShoppingcart: shoppingcart
+    singleProduct: singleProduct,
+    productReviews: reviews,
+    productAttributes: attributes,
+    inShoppingcart: shoppingcart
 });
 
-export default connect(
-  mapStateToProps,
-  {
+export default connect(mapStateToProps, {
     singleProductActions,
     reviewsActions,
     attributesActions,
     addtocartActions
-  }
-)(SingleItem);
+})(SingleItem);

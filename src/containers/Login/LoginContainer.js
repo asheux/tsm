@@ -1,6 +1,6 @@
-import { connect } from 'react-redux';
-import Login from './Login';
-import loginActions from '../../redux/actionCreators/login';
+import { connect } from "react-redux";
+import Login from "./Login";
+import loginActions from "../../redux/actionCreators/login";
 
 /**
  * map state to props or updates the
@@ -8,11 +8,8 @@ import loginActions from '../../redux/actionCreators/login';
  * using the action creators
  *  @param {*} object
  */
-const mapStateToProps = ({login}) => ({
-  loginUser: login
+const mapStateToProps = ({ login }) => ({
+    loginUser: login
 });
 
-export default connect(
-  mapStateToProps,
-  {loginActions}
-)(Login);
+export default connect(mapStateToProps, { loginActions })(Login);

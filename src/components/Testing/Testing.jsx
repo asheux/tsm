@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { ThemeContext, themes } from "../Context/theme-context.js";
 
 const DATA = [
     {
@@ -94,6 +95,7 @@ class ProductTable extends Component {
         });
 
         return (
+            <div style={this.props.bstyle}>
             <table>
                 <thead>
                     <tr>
@@ -103,6 +105,7 @@ class ProductTable extends Component {
                 </thead>
                 <tbody>{rows}</tbody>
             </table>
+        </div>
         );
     }
 }
@@ -142,23 +145,72 @@ class SearchBar extends Component {
     }
 }
 
-class CustomTextInput extends Component {
-    constructor(props) {
-        super(props);
-        this.textInput = React.createRef();
-    }
+//class CustomTextInput extends Component {
+//    constructor(props) {
+//        super(props);
+//        this.textInput = React.createRef();
+//    }
 
+//    render() {
+//        return <input type="text" ref={this.textInput} />;
+//    }
+//}
+
+class ThemedButton extends Component {
     render() {
-        return <input type="text" ref={this.textInput} />;
+        let props = this.props;
+        let theme = this.context;
+
+        return <button style={{ backgroundColor: theme.dark }} {...props} />;
     }
 }
+
+ThemedButton.contextType = ThemeContext;
+
+//const ToolBar = props => {
+//    return (
+//        <ThemedButton onClick={props.changeTheme}>Change Theme</ThemedButton>
+//    );
+//};
+
+const ThemeToggleButton = (props) => {
+    return (
+        <ThemeContext.Consumer>
+            {({ theme, toggleTheme, filterText, inStockOnly }) => (
+                <>
+                    <ProductTable
+                        bstyle={{
+                            backgroundColor: theme.background,
+                            color: theme.foreground
+                        }}
+                        products={props.data}
+                        filterText={filterText}
+                        inStockOnly={inStockOnly}
+                    />
+                    <button 
+                        onClick={toggleTheme}
+                    >
+                        Toggle Theme
+                    </button>
+                </>
+            )}
+        </ThemeContext.Consumer>
+    );
+};
 
 class FilterableProductTable extends Component {
     constructor(props) {
         super(props);
+        this.toggleTheme = () => {
+            this.setState(state => ({
+                theme: state.theme === themes.dark ? themes.light : themes.dark
+            }));
+        };
         this.state = {
             filterText: "",
-            inStockOnly: false
+            inStockOnly: false,
+            theme: themes.dark,
+            toggleTheme: this.toggleTheme
         };
     }
 
@@ -170,7 +222,7 @@ class FilterableProductTable extends Component {
     };
     render() {
         return (
-            <div class="container">
+            <div className="container">
                 <br />
                 <br />
                 <SearchBar
@@ -179,15 +231,19 @@ class FilterableProductTable extends Component {
                     onInStockChange={this.handleInStockChange}
                     onFilterTextChange={this.handleFilterTextChange}
                 />
-                <ProductTable
-                    products={DATA}
-                    filterText={this.state.filterText}
-                    inStockOnly={this.state.inStockOnly}
-                />
-                <CustomTextInput />
+                <ThemeContext.Provider value={this.state}>
+                    <Content data={DATA}/>
+                </ThemeContext.Provider>
+                <div>
+                    <ThemedButton>Change Theme 2</ThemedButton>
+                </div>
             </div>
         );
     }
 }
+
+const Content = (props) => {
+    return <ThemeToggleButton data={props.data}/>;
+};
 
 export default FilterableProductTable;
