@@ -27,6 +27,7 @@ const mapStateToProps = ({
     categoriesDepartment
 }) => ({
     productsData: products.data,
+    loading: products.loading,
     metaData: products.meta,
     metaDepartments: productsDepartment.meta,
     metaCategories: productsByCategory.meta,

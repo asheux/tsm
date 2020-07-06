@@ -31,21 +31,6 @@ export const isAuthenticated = () => !!getToken();
 
 export const logout = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("user_name");
 };
 
-const Authorization = WrappedComponent => {
-    const WithAuth = props => {
-        const { location } = props;
-        if (isAuthenticated()) {
-            return <WrappedComponent {...props} />;
-        }
-        return (
-            <Redirect
-                to={{ pathname: "/auth/login", state: { from: location } }}
-            />
-        );
-    };
-    return WithAuth;
-};
-
-export default Authorization;

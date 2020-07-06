@@ -353,6 +353,7 @@ class Products extends Component {
             departments
         } = this.state;
         const { categoriesData, metaData, departmentData } = this.props;
+        const { loading } = this.props;
 
         const options = metaData.pageSizeOptions.filter(this.isLessThanTotal);
 
@@ -370,33 +371,45 @@ class Products extends Component {
                     activeItem={activeItem}
                     handleSearchChange={this.handleSearchChange}
                 />
-                <div className="container-fluid">
-                    <div className="row">
-                        <ThemeContext.Provider value={this.state}>
-                            <ThemeChanger
-                                sidebarActive={sidebarActive}
-                                menu={
-                                    !categories
-                                        ? !categoriesData.data.rows
-                                            ? []
-                                            : categoriesData.data.rows
-                                        : categories
-                                }
-                                handleSidebarClick={this.handleCategoryClick}
-                            />
-                        </ThemeContext.Provider>
-                        <FilterProducts
-                            {...this.props}
-                            itemDetails={this.parseCardDetails(products)}
-                            handleCardClick={this.handleCardClick}
-                            handlePageChange={this.handlePageChange}
-                            handleShowSizeChange={this.handleShowSizeChange}
-                            pageSizeOptions={options}
-                            total={parseInt(total, 10)}
-                        />
+                {loading ? (
+                    <div>Loading...</div>
+                ) : (
+                    <div>
+                        <div className="container-fluid">
+                            <div className="row">
+                                <ThemeContext.Provider value={this.state}>
+                                    <ThemeChanger
+                                        sidebarActive={sidebarActive}
+                                        menu={
+                                            !categories
+                                                ? !categoriesData.data.rows
+                                                    ? []
+                                                    : categoriesData.data.rows
+                                                : categories
+                                        }
+                                        handleSidebarClick={
+                                            this.handleCategoryClick
+                                        }
+                                    />
+                                </ThemeContext.Provider>
+                                <FilterProducts
+                                    {...this.props}
+                                    itemDetails={this.parseCardDetails(
+                                        products
+                                    )}
+                                    handleCardClick={this.handleCardClick}
+                                    handlePageChange={this.handlePageChange}
+                                    handleShowSizeChange={
+                                        this.handleShowSizeChange
+                                    }
+                                    pageSizeOptions={options}
+                                    total={parseInt(total, 10)}
+                                />
+                            </div>
+                        </div>
+                        <Footer />
                     </div>
-                </div>
-                <Footer />
+                )}
             </React.Fragment>
         );
     }

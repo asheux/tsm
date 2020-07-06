@@ -1,6 +1,6 @@
 import React, { Suspense, lazy }from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Authorization from "../utils";
+import Authentication, { Authorization } from "../components/Authentication/Authentication";
 
 // introduction of route-based code-splitting with React.lazy (improves performance)
 const Products = lazy(() => import("../containers/Products"));
@@ -20,7 +20,7 @@ const Testing = lazy(() => import("../components/Testing"));
 export const AppRoutes = () => (
     <Router>
         <React.Fragment>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div/>}>
                 <Switch>
                     <Route
                         path={[
@@ -42,17 +42,17 @@ export const AppRoutes = () => (
                     />
                     <Route
                         path="/customer"
-                        component={Authorization(Customer)}
+                        component={Authentication(Authorization(Customer))}
                         exact
                     />
                     <Route
                         path="/stripe/charge"
-                        component={Authorization(Stripe)}
+                        component={Authentication(Authorization(Stripe))}
                         exact
                     />
                     <Route
                         path="/myorders"
-                        component={Authorization(MyOrders)}
+                        component={Authentication(Authorization(MyOrders))}
                         exact
                     />
                     <Route path="/orders/:order_id" component={SingleOrder} exact />
