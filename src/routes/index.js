@@ -1,18 +1,18 @@
 import React, { Suspense, lazy }from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Authentication, { Authorization } from "../components/Authentication/Authentication";
+import Products from "../containers/Products";
+import SingleItem from "../containers/SingleItem";
+import Login from "../containers/Login";
+import SignUp from "../containers/SignUp";
+import ShoppingCart from "../containers/ShoppingCart";
+import Customer from "../containers/Customer";
+import Stripe from "../containers/Stripe";
+import MyOrders from "../containers/MyOrders";
+import SingleOrder from "../containers/SingleOrder";
 
 // introduction of route-based code-splitting with React.lazy (improves performance)
-const Products = lazy(() => import("../containers/Products"));
-const SingleItem = lazy(() => import("../containers/SingleItem"));
-const Login = lazy(() => import("../containers/Login"));
-const SignUp = lazy(() => import("../containers/SignUp"))
-const ShoppingCart = lazy(() => import("../containers/ShoppingCart"));
-const Customer = lazy(() => import("../containers/Customer"));
-const Stripe = lazy(() => import("../containers/Stripe"));
-const MyOrders = lazy(() => import("../containers/MyOrders"));
-const SingleOrder = lazy(() => import("../containers/SingleOrder"));
-const Testing = lazy(() => import("../components/Testing"));
+const Testing = lazy(() => import('../components/Testing'));
 
 /**
  * Implements routing in the application

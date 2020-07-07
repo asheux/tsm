@@ -20,7 +20,7 @@ const Navbar = ({ ...props }) => {
                         className="navbar-brand js-scroll-trigger"
                         to="/products"
                     >
-                        Promerce
+                        Mindpload
                     </Link>
                     <div
                         className="collapse navbar-collapse "

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { ThemeContext, themes } from "../Context/theme-context.js";
 
 const DATA = [
@@ -96,16 +96,16 @@ class ProductTable extends Component {
 
         return (
             <div style={this.props.bstyle}>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-            </table>
-        </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                </table>
+            </div>
         );
     }
 }
@@ -173,7 +173,7 @@ ThemedButton.contextType = ThemeContext;
 //    );
 //};
 
-const ThemeToggleButton = (props) => {
+const ThemeToggleButton = props => {
     return (
         <ThemeContext.Consumer>
             {({ theme, toggleTheme, filterText, inStockOnly }) => (
@@ -187,16 +187,27 @@ const ThemeToggleButton = (props) => {
                         filterText={filterText}
                         inStockOnly={inStockOnly}
                     />
-                    <button 
-                        onClick={toggleTheme}
-                    >
-                        Toggle Theme
-                    </button>
+                    <button onClick={toggleTheme}>Toggle Theme</button>
                 </>
             )}
         </ThemeContext.Consumer>
     );
 };
+
+function Example() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        document.title = `You clicked ${count} times`;
+    });
+
+    return (
+        <div>
+            <p>You clicked {count} times</p>
+            <button onClick={() => setCount(count + 1)}>Click me</button>
+        </div>
+    );
+}
 
 class FilterableProductTable extends Component {
     constructor(props) {
@@ -232,18 +243,20 @@ class FilterableProductTable extends Component {
                     onFilterTextChange={this.handleFilterTextChange}
                 />
                 <ThemeContext.Provider value={this.state}>
-                    <Content data={DATA}/>
+                    <Content data={DATA} />
                 </ThemeContext.Provider>
+                <br />
+                <br />
                 <div>
-                    <ThemedButton>Change Theme 2</ThemedButton>
+                    <Example />
                 </div>
             </div>
         );
     }
 }
 
-const Content = (props) => {
-    return <ThemeToggleButton data={props.data}/>;
+const Content = props => {
+    return <ThemeToggleButton data={props.data} />;
 };
 
 export default FilterableProductTable;

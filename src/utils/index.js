@@ -1,5 +1,3 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
 export const setToken = token => {
