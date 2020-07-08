@@ -44,9 +44,45 @@ a.navbar-brand {
     flex-grow: 0;
 }
 
-.header-banner {
-    margin-bottom: -1em;
+.mindpload-image {
+    margin: 0 auto;
+    max-width: 1500px;
+    width: 100%;
+    overflow: hidden;
 }
+
+#outer {
+    background: #3c3c3c;
+    margin-top: 6.4em;
+    overflow: hidden;
+}
+
+#dom {
+    pointer-events: none;
+    overflow: hidden;
+    width: 1293.33px;
+    height: 388px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: block;
+}
+
+#animation_container {
+    position: relative;
+    margin: auto;
+    width: 1293.33px;
+    height: 388px;
+    left: 0;
+    right: 0;
+}
+
+.mindpload-image img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
 dropdown-menu .link-item {
     color: white;
     text-decoration: none;
@@ -78,12 +114,27 @@ dropdown-menu .link-item {
 
 /* Child navbar */
 
+ul {
+    margin-bottom: 0 !important;
+}
 ul.account-ul li {
     display: inline;
 }
 
-.col-md-6 {
+.account-ul {
+    padding-left: 0px;
+}
+
+.firstdiv {
+    float: left;
+}
+
+.middlediv {
     text-align: center;
+}
+
+.farenddiv {
+    float: right;
 }
 
 .account {
@@ -903,7 +954,7 @@ section .section-title {
     z-index: 12;
     position: relative;
     /* background: #007b5e; */
-    background-color: #E6E6E6;
+    background-color: #e6e6e6;
     /* background-color: #335062 */
 }
 
@@ -916,11 +967,11 @@ section .section-title {
 }
 
 .h6 {
-    color: #6E6E6E;
+    color: #6e6e6e;
 }
 
 #footer a {
-    color: #6E6E6E;
+    color: #6e6e6e;
     text-decoration: none !important;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
@@ -945,7 +996,7 @@ section .section-title {
 
 #footer ul.social li a,
 #footer ul.quick-links li a {
-    color: #6E6E6E;
+    color: #6e6e6e;
 }
 
 #footer ul.quick-links li:hover a {
@@ -978,7 +1029,7 @@ section .section-title {
 }
 
 #footer ul.quick-links li:hover a i {
-    color:rgb(244, 93, 34);
+    color: rgb(244, 93, 34);
     font-weight: 700;
 }
 

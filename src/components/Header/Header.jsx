@@ -55,8 +55,8 @@ const userul = (username, handleLogout) => (
 );
 
 const notloggedinul = () => (
-    <div>
-        <ul className="account-ul">
+    <div className="account-de">
+        <ul className="account-ul firstdiv">
             <li className="nav-item">
                 Hi!
                 <Link to="/auth/login" className="auth">
@@ -74,7 +74,7 @@ const notloggedinul = () => (
 );
 
 const middlediv = () => (
-    <div className="col-md-6">
+    <div className="col-md-6 middlediv">
         <ul className="account-ul">
             <li className="nav-item">
                 <Link to="/" className="item">
@@ -97,7 +97,7 @@ const middlediv = () => (
 
 const farenddiv = (total, generatedId) => (
     <div className="col-md-3">
-        <ul className="account-ul">
+        <ul className="account-ul farenddiv">
             <li className="nav-item">
                 <Link to={`/shoppingcart/${generatedId}`} className="item">
                     <i className="fas fa-cart-arrow-down">
@@ -106,7 +106,7 @@ const farenddiv = (total, generatedId) => (
                 </Link>
             </li>
             <li className="nav-item">
-                Your Bag: <span className="auth">&euro; 3.49</span>
+                Your Bag: <span className="auth">&euro; 9999.49</span>
             </li>
         </ul>
     </div>
@@ -118,7 +118,7 @@ const Header = ({ ...props }) => {
     const generatedId = accessCart.getGeneratedCartId();
 
     return (
-        <div className="account">
+        <div className="account container-fluid">
             <div className="row header-banner">
                 <div className="col-md-3">
                     <AuthContext.Consumer>
