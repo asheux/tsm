@@ -6,7 +6,7 @@
     "@bugsnag/js": "^7.1.1",
     "@bugsnag/plugin-react": "^7.1.1",
     "antd": "^3.16.5",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "axios-mock-adapter": "^1.16.0",
     "enzyme": "^3.9.0",
     "fast-deep-equal": "^2.0.1",
